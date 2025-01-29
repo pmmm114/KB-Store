@@ -1,7 +1,4 @@
-import {
-  HttpClient,
-  RequestParams,
-} from '@/api/client/http-client';
+import { HttpClient, RequestParams } from '@/api/client/http-client';
 
 import * as DTO from '@/api/dto/dto';
 
@@ -21,10 +18,7 @@ export class DemoController<SecurityDataType = unknown> {
       ...params,
     });
 
-  getScrollList = (
-    query: DTO.IGetScrollListReq,
-    params: RequestParams = {},
-  ) =>
+  getScrollList = (query: DTO.IGetScrollListReq, params: RequestParams = {}) =>
     this.http.request<DTO.IGetScrollListRes>({
       path: `/api/scroll-list`,
       method: 'GET',
