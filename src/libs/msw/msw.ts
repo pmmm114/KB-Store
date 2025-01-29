@@ -2,7 +2,6 @@ import { type DefaultBodyType, http } from 'msw';
 
 import * as T from './type';
 
-
 export async function sleep(timeout: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, timeout);
@@ -16,11 +15,11 @@ export async function sleep(timeout: number) {
  * - 와일드카드(*) 자동 추가
  */
 export const normalizeMswPath = (path: string): string => {
-    const PARAM_PATTERN = /\$?{(.*?)}/g;
-    const WILDCARD = '*';
-    
-    return `${WILDCARD}${path.replace(PARAM_PATTERN, ':$1')}`;
-  };
+  const PARAM_PATTERN = /\$?{(.*?)}/g;
+  const WILDCARD = '*';
+
+  return `${WILDCARD}${path.replace(PARAM_PATTERN, ':$1')}`;
+};
 
 /**
  * MSW http request method
@@ -39,13 +38,16 @@ export const MSW_HTTP_METHOD = {
  *
  * @returns msw handler를 반환
  */
-export const createMswHandler = <Req extends DefaultBodyType, Res extends DefaultBodyType>({
+export const createMswHandler = <
+  Req extends DefaultBodyType,
+  Res extends DefaultBodyType,
+>({
   method,
   path,
   handlerFunction,
 }: T.ICreateHandlerParams<Req, Res>) => {
   const httpMethod = MSW_HTTP_METHOD[method];
-  
+
   if (!httpMethod) {
     throw new Error(`[MSW] Invalid method: ${method}`);
   }

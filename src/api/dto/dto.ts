@@ -1,6 +1,4 @@
-import {
-  QueryParamsType,
-} from '@/api/client/http-client';
+import { QueryParamsType } from '@/api/client/http-client';
 
 export interface ICardItem {
   id: number;
@@ -9,7 +7,7 @@ export interface ICardItem {
   description: string;
 }
 
-export interface IGetTopBannerReq extends QueryParamsType{
+export interface IGetTopBannerReq extends QueryParamsType {
   page: string;
 }
 export interface IGetTopBannerRes {
@@ -17,7 +15,7 @@ export interface IGetTopBannerRes {
   nextCursor: string;
 }
 
-export interface IGetScrollListReq extends QueryParamsType{
+export interface IGetScrollListReq extends QueryParamsType {
   category: 'BEST' | 'RECOMMEND' | 'NEW';
   page: string;
 }

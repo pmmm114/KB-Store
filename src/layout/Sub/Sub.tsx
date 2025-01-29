@@ -1,9 +1,9 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react';
 
 interface ISubLayoutProps {}
 
-const SubLayout = ({children}: PropsWithChildren<ISubLayoutProps>) => {
-    return children;
-}
+const SubLayout = ({ children }: PropsWithChildren<ISubLayoutProps>) => {
+  return children;
+};
 
 export default SubLayout;

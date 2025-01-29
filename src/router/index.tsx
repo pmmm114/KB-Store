@@ -1,9 +1,8 @@
-import { createBrowserRouter, Navigate, RouteObject } from "react-router";
+import { createBrowserRouter, Navigate, RouteObject } from 'react-router';
 
-import { PATHS } from "./paths";
-import * as Layout from "@/layout";
-import Page404 from "@/pages/404";
-
+import { PATHS } from './paths';
+import * as Layout from '@/layout';
+import Page404 from '@/pages/404';
 
 const ROUTES: RouteObject[] = [
   {
