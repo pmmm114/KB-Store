@@ -9,6 +9,7 @@ const ROUTES: RouteObject[] = [
     path: PATHS.ROOT(),
     element: <Layout.CommonLayout />,
     children: [
+      { path: PATHS.ROOT(), element: <Navigate to={PATHS.MAIN()} replace /> },
       {
         path: PATHS.MAIN(),
         element: <Layout.MainLayout />,
