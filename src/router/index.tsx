@@ -1,22 +1,31 @@
 import { createBrowserRouter, Navigate, RouteObject } from 'react-router';
 
-import { PATHS } from './paths';
-import * as Layout from '@/layout';
+// INFO: Pages
+import Main from '@/pages/Main';
+import Sub from '@/pages/Sub';
 import Page404 from '@/pages/404';
+
+// INFO: Layout
+import * as Layout from '@/layout';
+
+import { PATHS } from './paths';
 
 const ROUTES: RouteObject[] = [
   {
     path: PATHS.ROOT(),
     element: <Layout.CommonLayout />,
     children: [
-      { path: PATHS.ROOT(), element: <Navigate to={PATHS.MAIN()} replace /> },
+      // INFO: Root 접근 시, Main 페이지로 이동
+      { index: true, element: <Navigate to={PATHS.MAIN()} replace /> },
       {
         path: PATHS.MAIN(),
         element: <Layout.MainLayout />,
+        children: [{ index: true, element: <Main /> }],
       },
       {
         path: PATHS.SUB(),
         element: <Layout.SubLayout />,
+        children: [{ index: true, element: <Sub /> }],
       },
     ],
   },
