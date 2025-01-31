@@ -5,10 +5,7 @@ import '../src/styles/_globals.css';
 const preview: Preview = {
   parameters: {
     controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
+      exclude: ['as'],
     },
   },
 };
