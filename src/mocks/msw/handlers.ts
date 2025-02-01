@@ -2,7 +2,7 @@ import { HttpResponse } from 'msw';
 
 import { createMswHandler } from '@/libs/msw/msw';
 import { generateRandomArray } from '@/utils/core/array';
-import { getRandomImageUrl } from '@/utils/\bapi/image';
+import { getRandomImageUrl } from '@/utils/api/image';
 
 /**
  * 탑배너 정보 가져오기
