@@ -1,5 +1,6 @@
 import type { ITailwindClass } from '@/styles/types';
-import { isFunction } from '@/utils/typescript/guard';
+import { isFunction, isObject } from '@/utils/typescript/guard';
+import { CustomTypeError } from '@/utils/error/error';
 
 /**
  * tailwind 클래스를 적용하는 함수
@@ -12,11 +13,23 @@ export const applyClass = (
   tailwindClass: ((className?: string) => string) | ITailwindClass,
   className?: string,
 ): string => {
-  if (isFunction(tailwindClass)) {
-    return tailwindClass(className); // 함수일 경우 호출
-  }
+  try {
+    if (
+      typeof tailwindClass !== 'function' &&
+      typeof tailwindClass !== 'object'
+    ) {
+      throw new CustomTypeError('Expected a function or object.');
+    }
 
-  throw new Error(
-    'Expected a function for tailwindClass, but received a different type.',
-  );
+    if (isFunction(tailwindClass)) {
+      return tailwindClass(className);
+    } else if (isObject(tailwindClass)) {
+      return applyClass(tailwindClass, className);
+    }
+
+    return '';
+  } catch (error) {
+    console.error(error);
+    return '';
+  }
 };
