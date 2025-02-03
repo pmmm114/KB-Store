@@ -1169,7 +1169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.1.1":
+"@radix-ui/react-slot@npm:1.1.1, @radix-ui/react-slot@npm:^1.1.1":
   version: 1.1.1
   resolution: "@radix-ui/react-slot@npm:1.1.1"
   dependencies:
@@ -4288,6 +4288,7 @@ __metadata:
   resolution: "kb-react-mall@workspace:."
   dependencies:
     "@chromatic-com/storybook": ^3.2.4
+    "@radix-ui/react-slot": ^1.1.1
     "@radix-ui/react-tabs": ^1.1.2
     "@storybook/addon-essentials": ^8.5.2
     "@storybook/addon-interactions": ^8.5.2
