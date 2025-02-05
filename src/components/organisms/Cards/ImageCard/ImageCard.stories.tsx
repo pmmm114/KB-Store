@@ -1,8 +1,8 @@
-// Replace your-framework with the name of your framework
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Skeleton } from '@/components/atoms/Skeleton';
 import { LazyImage } from '@/components/molecules/LazyImage';
+import { getRandomImageUrl } from '@/utils/api/image';
 
 import {
   ImageCard,
@@ -13,18 +13,19 @@ import {
   ImageCardFooter,
 } from '.';
 
-const meta: Meta<typeof ImageCard> = {
+const meta = {
   title: 'Components/Organisms/Cards/ImageCard',
   component: ImageCard,
-};
+} satisfies Meta<typeof ImageCard<'div'>>;
 
 export default meta;
-type Story = StoryObj<typeof ImageCard>;
+type Story = StoryObj<typeof ImageCard<'div'>>;
 
 /**
  * 이미지 카드의 스토리북 확장 인터페이스
  */
-interface IExtendsImageArgs extends React.ComponentProps<typeof ImageCard> {
+interface IExtendsImageArgs
+  extends React.ComponentProps<typeof ImageCard<'div'>> {
   imgSrc?: string;
   cardTitle?: string;
   cardDescription?: string;
@@ -32,15 +33,18 @@ interface IExtendsImageArgs extends React.ComponentProps<typeof ImageCard> {
 }
 export const Image: StoryObj<IExtendsImageArgs> = {
   args: {
-    imgSrc: '',
+    imgSrc: getRandomImageUrl({ width: 180, height: 180, extension: 'webp' }),
     cardTitle: 'title',
     cardDescription: 'Card DescriptionCard DescriptionCard Description',
     cardFooter: 'Card FooterafdsafdsafdsafCard Footerafdsafdsafdsaf',
   },
   render: ({ imgSrc, cardTitle, cardDescription, cardFooter, ...args }) => (
-    <ImageCard className="h-[340px] w-[204px]" {...args}>
+    <ImageCard
+      className="h-[340px] w-[204px] border border-solid border-gray-300"
+      {...args}
+    >
       <ImageCardHeader className="flex-[0_0_200px]">
-        <LazyImage src={imgSrc} className="overflow-hidden rounded-lg" />
+        <LazyImage src={imgSrc} />
       </ImageCardHeader>
       <ImageCardContent>
         <ImageCardTitle>{cardTitle}</ImageCardTitle>
@@ -54,9 +58,12 @@ export const Image: StoryObj<IExtendsImageArgs> = {
 };
 export const ImageSkeleton: Story = {
   render: (args) => (
-    <ImageCard className="h-[340px] w-[204px] flex-[0_0_204px]" {...args}>
+    <ImageCard
+      className="h-[340px] w-[204px] flex-[0_0_204px] border border-solid border-gray-300"
+      {...args}
+    >
       <ImageCardHeader className="h-[200px] flex-[0_0_200px]">
-        <LazyImage src={''} className="overflow-hidden rounded-lg" />
+        <LazyImage src={''} />
       </ImageCardHeader>
       <ImageCardContent>
         <ImageCardTitle>
