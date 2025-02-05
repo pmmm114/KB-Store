@@ -13,10 +13,17 @@ import * as S from './ImageCard.styles';
 /**
  * 이미지 카드 컴포넌트
  */
-interface IImageCardProps extends React.ComponentProps<typeof Card> {}
-const ImageCard = ({ className, ...rest }: IImageCardProps) => {
+export type TImageCardProps<T extends React.ElementType> = React.ComponentProps<
+  typeof Card<T>
+>;
+const ImageCard = <T extends React.ElementType = 'div'>({
+  as = 'div',
+  className,
+  ...rest
+}: TImageCardProps<T>) => {
   return (
     <Card
+      as={as}
       className={applyClass(S.IMAGE_CARD_TAILWIND_CLASS.ROOT, className)}
       {...rest}
     />
@@ -26,10 +33,16 @@ const ImageCard = ({ className, ...rest }: IImageCardProps) => {
 /**
  * 이미지 카드 제목 컴포넌트
  */
-interface IImageCardTitleProps extends React.ComponentProps<typeof CardTitle> {}
-const ImageCardTitle = ({ className, ...rest }: IImageCardTitleProps) => {
+export type TImageCardTitleProps<T extends React.ElementType> =
+  React.ComponentProps<typeof CardTitle<T>>;
+const ImageCardTitle = <T extends React.ElementType = 'div'>({
+  as = 'div',
+  className,
+  ...rest
+}: TImageCardTitleProps<T>) => {
   return (
     <CardTitle
+      as={as}
       className={applyClass(S.IMAGE_CARD_TAILWIND_CLASS.TITLE, className)}
       {...rest}
     />
@@ -39,11 +52,16 @@ const ImageCardTitle = ({ className, ...rest }: IImageCardTitleProps) => {
 /**
  * 이미지 카드 컨텐츠 컴포넌트
  */
-interface IImageCardContentProps
-  extends React.ComponentProps<typeof CardContent> {}
-const ImageCardContent = ({ className, ...rest }: IImageCardContentProps) => {
+export type TImageCardContentProps<T extends React.ElementType> =
+  React.ComponentProps<typeof CardContent<T>>;
+const ImageCardContent = <T extends React.ElementType = 'div'>({
+  as = 'div',
+  className,
+  ...rest
+}: TImageCardContentProps<T>) => {
   return (
     <CardContent
+      as={as}
       className={applyClass(S.IMAGE_CARD_TAILWIND_CLASS.CONTENT, className)}
       {...rest}
     />
@@ -53,11 +71,16 @@ const ImageCardContent = ({ className, ...rest }: IImageCardContentProps) => {
 /**
  * 이미지 카드 헤더 컴포넌트
  */
-interface IImageCardHeaderProps
-  extends React.ComponentProps<typeof CardHeader> {}
-const ImageCardHeader = ({ className, ...rest }: IImageCardHeaderProps) => {
+export type TImageCardHeaderProps<T extends React.ElementType> =
+  React.ComponentProps<typeof CardHeader<T>>;
+const ImageCardHeader = <T extends React.ElementType = 'div'>({
+  as = 'div',
+  className,
+  ...rest
+}: TImageCardHeaderProps<T>) => {
   return (
     <CardHeader
+      as={as}
       className={applyClass(S.IMAGE_CARD_TAILWIND_CLASS.HEADER, className)}
       {...rest}
     />
@@ -67,11 +90,16 @@ const ImageCardHeader = ({ className, ...rest }: IImageCardHeaderProps) => {
 /**
  * 이미지 카드 푸터 컴포넌트
  */
-interface IImageCardFooterProps
-  extends React.ComponentProps<typeof CardFooter> {}
-const ImageCardFooter = ({ className, ...rest }: IImageCardFooterProps) => {
+export type TImageCardFooterProps<T extends React.ElementType> =
+  React.ComponentProps<typeof CardFooter<T>>;
+const ImageCardFooter = <T extends React.ElementType = 'div'>({
+  as = 'div',
+  className,
+  ...rest
+}: TImageCardFooterProps<T>) => {
   return (
     <CardFooter
+      as={as}
       className={applyClass(S.IMAGE_CARD_TAILWIND_CLASS.FOOTER, className)}
       {...rest}
     />
@@ -81,14 +109,16 @@ const ImageCardFooter = ({ className, ...rest }: IImageCardFooterProps) => {
 /**
  * 이미지 카드 설명 컴포넌트
  */
-interface IImageCardDescriptionProps
-  extends React.ComponentProps<typeof CardDescription> {}
-const ImageCardDescription = ({
+export type TImageCardDescriptionProps<T extends React.ElementType> =
+  React.ComponentProps<typeof CardDescription<T>>;
+const ImageCardDescription = <T extends React.ElementType = 'div'>({
+  as = 'div',
   className,
   ...rest
-}: IImageCardDescriptionProps) => {
+}: TImageCardDescriptionProps<T>) => {
   return (
     <CardDescription
+      as={as}
       className={applyClass(S.IMAGE_CARD_TAILWIND_CLASS.DESCRIPTION, className)}
       {...rest}
     />

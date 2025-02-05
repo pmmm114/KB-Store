@@ -17,25 +17,19 @@ interface ILazyImageProps {
 /**
  * LazyImage ComponentProps
  */
-type TLazyImageComponentProps<T extends React.ElementType> = ILazyImageProps &
-  React.ComponentPropsWithRef<T>;
-/**
- * LazyImage에서 사용할 Props
- *  - children을 포함한 Props
- */
-type TLazyImagePropsWithChildren<T extends React.ElementType> =
-  React.PropsWithChildren<TLazyImageComponentProps<T>>;
-
+export type TExtendsLazyImageComponentProps<T extends React.ElementType> =
+  ILazyImageProps & React.ComponentPropsWithRef<T>;
 const intersectionObserverOptions = {
   triggerOnce: true,
   threshold: 0.1,
 };
+
 const LazyImage = <T extends React.ElementType = 'img'>({
   src,
   rootClassName,
   className,
   ...rest
-}: TLazyImagePropsWithChildren<T>) => {
+}: TExtendsLazyImageComponentProps<T>) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { ref, inView } = useInView(intersectionObserverOptions);
 
