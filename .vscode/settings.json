@@ -1,0 +1,31 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsserver.log": "verbose",
+  // 파일을 저장할 때마다 `eslint` 규칙에 따라 자동으로 코드를 수정
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": true,
+  // 문자열 자동 완성
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  // Prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc.mjs",
+  "prettier.prettierPath": "./node_modules/prettier",
+  // 자동 가져오기는 기본적으로 tsconfig에 정의된 절대경로를 사용
+  "eslint.format.enable": false,
+  "eslint.ignoreUntitled": false,
+  "eslint.run": "onType",
+  // TailwindCSS
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["(?:cn)\\(([^)]*)\\)", "\"([^\"]*)\""],
+    ["(?:cn)\\(([^)]*)\\)", "'([^']*')"],
+    ["(?:cn)\\(([^)]*)\\)", "`([^`]*`)"]
+  ]
+}

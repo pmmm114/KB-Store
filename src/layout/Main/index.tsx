@@ -1,9 +1,7 @@
-import type { PropsWithChildren } from 'react';
+import { Outlet } from 'react-router';
 
-interface IMainLayoutProps {}
-
-const MainLayout = ({ children }: PropsWithChildren<IMainLayoutProps>) => {
-  return children;
+const MainLayout = () => {
+  return <Outlet />;
 };
 
 export default MainLayout;
