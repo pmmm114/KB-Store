@@ -1,8 +1,8 @@
-import * as DTO from '@/api/dto/dto';
+import type { ITabItem } from '@/components/templates/Main/types';
 
 export type TMainState = {
   tab: {
-    key: DTO.TCategory;
+    key: ITabItem['key'];
   };
 };
 

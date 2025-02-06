@@ -2,6 +2,8 @@ import { ChevronRight } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router';
 
+import { useMainStore } from '@/libs/zustand/store';
+
 /**
  * Router
  */
@@ -47,11 +49,16 @@ import { applyClass } from '@/utils/style/tailwind';
  */
 import * as S from './Main.styles';
 import * as T from './types';
+import { Skeleton } from '@/components/atoms/Skeleton';
 
-const MainTemplate = ({
-  recommandSection = { items: [] },
-  nftTabSection = { listItems: [], tabItems: [] },
-}: T.IMainTemplateProps) => {
+const MainTemplate = (
+  { recommandSection, nftTabSection }: T.IMainTemplateProps = {
+    recommandSection: { items: [], isLoading: true, skeletonItemCount: 5 },
+    nftTabSection: { listItems: [], tabItems: [], isLoading: true },
+  },
+) => {
+  const { tab, setTab } = useMainStore((state) => state);
+
   const VIRTUAL_SCROLL_OPTIONS = useMemo(() => {
     return {
       estimateSize: () => 500,
@@ -60,6 +67,17 @@ const MainTemplate = ({
       gap: 8,
     };
   }, []);
+
+  const recommandSectionItems = useMemo(() => {
+    return recommandSection.isLoading
+      ? [
+          ...recommandSection.items,
+          ...Array.from({
+            length: recommandSection.skeletonItemCount as number,
+          }),
+        ]
+      : recommandSection.items;
+  }, [recommandSection]);
 
   return (
     <>
@@ -83,44 +101,116 @@ const MainTemplate = ({
         <HorizontalSlider
           className={applyClass(S.RECOMMENDED_NFT_TAILWIND_CLASS.SCROLLER)}
         >
-          {recommandSection.items.map((item, _) => (
-            <ImageCard
-              className={applyClass(
-                S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.ROOT,
-              )}
-              key={item.id}
-            >
-              <ImageCardHeader
+          {recommandSectionItems.map((item, index) => {
+            // INFO: 로딩 상태일 때 데이터가 없는 경우 더미 데이터를 보여줌
+            if (recommandSection.isLoading) {
+              return (
+                <ImageCard
+                  className={applyClass(
+                    S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.ROOT,
+                  )}
+                  key={index}
+                >
+                  <ImageCardHeader
+                    className={applyClass(
+                      S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.HEADER,
+                    )}
+                  >
+                    <LazyImage
+                      src={''}
+                      rootClassName={applyClass(
+                        S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.LAZY_IMAGE
+                          .ROOT,
+                      )}
+                      className={applyClass(
+                        S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.LAZY_IMAGE
+                          .IMAGE,
+                      )}
+                    />
+                  </ImageCardHeader>
+                  <ImageCardContent>
+                    <ImageCardTitle>
+                      <Skeleton
+                        className={applyClass(
+                          S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.SKELETON
+                            .TITLE,
+                        )}
+                      />
+                    </ImageCardTitle>
+                    <ImageCardDescription>
+                      <Skeleton
+                        className={applyClass(
+                          S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.SKELETON
+                            .DESCRIPTION,
+                        )}
+                      />
+                    </ImageCardDescription>
+                  </ImageCardContent>
+                  <ImageCardFooter>
+                    <Skeleton
+                      className={applyClass(
+                        S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.SKELETON
+                          .FOOTER,
+                      )}
+                    />
+                  </ImageCardFooter>
+                </ImageCard>
+              );
+            }
+
+            return (
+              <ImageCard
                 className={applyClass(
-                  S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.HEADER,
+                  S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.ROOT,
                 )}
+                key={item.id}
               >
-                <LazyImage
-                  src={item.imageUrl}
-                  rootClassName={applyClass(
-                    S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.LAZY_IMAGE.ROOT,
-                  )}
+                <ImageCardHeader
                   className={applyClass(
-                    S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.LAZY_IMAGE
-                      .IMAGE,
-                  )}
-                />
-              </ImageCardHeader>
-              <ImageCardContent>
-                <ImageCardTitle>{item.title}</ImageCardTitle>
-                <ImageCardDescription>{item.description}</ImageCardDescription>
-              </ImageCardContent>
-              <ImageCardFooter>
-                <span
-                  className={applyClass(
-                    S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.FOOTER.TEXT,
+                    S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.HEADER,
                   )}
                 >
-                  {item.footer}
-                </span>
-              </ImageCardFooter>
-            </ImageCard>
-          ))}
+                  <LazyImage
+                    src={item.imageUrl}
+                    rootClassName={applyClass(
+                      S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.LAZY_IMAGE
+                        .ROOT,
+                    )}
+                    className={applyClass(
+                      S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.LAZY_IMAGE
+                        .IMAGE,
+                    )}
+                  />
+                </ImageCardHeader>
+                <ImageCardContent>
+                  <ImageCardTitle>{item.title}</ImageCardTitle>
+                  <ImageCardDescription>
+                    {item.description}
+                  </ImageCardDescription>
+                </ImageCardContent>
+                <ImageCardFooter>
+                  <span
+                    className={applyClass(
+                      S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.FOOTER.TEXT,
+                    )}
+                  >
+                    {item.footer}
+                  </span>
+                </ImageCardFooter>
+              </ImageCard>
+            );
+          })}
+          {recommandSection.isLoading &&
+            Array.from({ length: recommandSection.loadingItemCount }).map(
+              (_, index) => (
+                <ImageCard
+                  key={index}
+                  className={applyClass(
+                    S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.ROOT,
+                  )}
+                />
+              ),
+            )}
         </HorizontalSlider>
       </section>
 
@@ -128,27 +218,29 @@ const MainTemplate = ({
         <h2 className={applyClass(S.NFT_BY_CATEGORY_TAILWIND_CLASS.TITLE)}>
           NFT 카테고리
         </h2>
-        <Tabs defaultValue={Object.keys(nftTabSection.tabItems[0])[0]}>
+        <Tabs
+          defaultValue={tab.key}
+          onValueChange={(value) => {
+            setTab({ key: value as T.ITabItem['key'] });
+          }}
+        >
           <TabsList
             className={applyClass(S.NFT_BY_CATEGORY_TAILWIND_CLASS.TABS.LIST)}
           >
-            {nftTabSection.tabItems.map((tabItem, index) => (
+            {nftTabSection.tabItems.map((tabItem, _index) => (
               <TabsTrigger
-                key={Object.keys(tabItem)[0]}
-                value={Object.keys(tabItem)[0]}
+                key={tabItem.key}
+                value={tabItem.key}
                 className={applyClass(
                   S.NFT_BY_CATEGORY_TAILWIND_CLASS.TABS.TRIGGER.ROOT,
                 )}
               >
-                {Object.values(tabItem)[0]}
+                {tabItem.label}
               </TabsTrigger>
             ))}
           </TabsList>
           {nftTabSection.tabItems.map((tabItem, tabIndex) => (
-            <TabsContent
-              key={Object.keys(tabItem)[0]}
-              value={Object.keys(tabItem)[0]}
-            >
+            <TabsContent key={tabItem.key} value={tabItem.key}>
               <VirtualScroller
                 columnsGap={1}
                 scrollInnerClassName={applyClass(
