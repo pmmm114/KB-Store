@@ -2072,6 +2072,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-devtools@npm:5.65.0":
+  version: 5.65.0
+  resolution: "@tanstack/query-devtools@npm:5.65.0"
+  checksum: 6c33dfcca8e1cee18f313598982b23fa95c18f60f2cd1b7d852f36c2f4399cfa3e743d1b26580406029a169f263f1e3b22dbbf58e8bd2e0c70cfe91af26bd5fd
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.66.0":
+  version: 5.66.0
+  resolution: "@tanstack/react-query-devtools@npm:5.66.0"
+  dependencies:
+    "@tanstack/query-devtools": 5.65.0
+  peerDependencies:
+    "@tanstack/react-query": ^5.66.0
+    react: ^18 || ^19
+  checksum: 75b1d1cea1fa1fe2d09667f4ed2b65b68304908c6b078e682c69791fe2f9928d24db8ef1ad695633cbdb5488e9b302e289858a4616bb3abf5d50394425f9ae19
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-query@npm:^5.66.0":
   version: 5.66.0
   resolution: "@tanstack/react-query@npm:5.66.0"
@@ -4324,6 +4343,7 @@ __metadata:
     "@storybook/test": ^8.5.2
     "@tailwindcss/vite": ^4.0.0
     "@tanstack/react-query": ^5.66.0
+    "@tanstack/react-query-devtools": ^5.66.0
     "@tanstack/react-virtual": ^3.11.3
     "@types/react": ^19.0.0
     "@types/react-dom": ^19.0.0
