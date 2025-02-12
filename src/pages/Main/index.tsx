@@ -26,15 +26,31 @@ const TABS = [
   },
 ] as const satisfies INftTabSection['tabItems'];
 
+const TOP_NFT_SKELETON_COUNT = 10;
 const Main = () => {
   const { topBannerQuery, scrollListQuery } = useFetchMainPageInit();
 
-  const recommendNftItems = useMemo(
-    () =>
-      topBannerQuery.data?.pages.flatMap((response) => response.data.list) ||
-      [],
-    [topBannerQuery.data],
-  );
+  /**
+   * 추천 NFT 아이템 데이터
+   */
+  const recommendNftItems = useMemo(() => {
+    // INFO: 재요청 시 스켈레톤 데이터 반환을 위해 빈 데이터 생성
+    if (topBannerQuery.isRefetching || topBannerQuery.isLoading) {
+      return Array.from({ length: TOP_NFT_SKELETON_COUNT }, () => null);
+    }
+
+    return (
+      topBannerQuery.data?.pages.flatMap((response) => response.data.list) || []
+    );
+  }, [
+    topBannerQuery.data,
+    topBannerQuery.isRefetching,
+    topBannerQuery.isLoading,
+  ]);
+
+  /**
+   * NFT 탭 아이템 데이터
+   */
   const nftItems = useMemo(
     () =>
       scrollListQuery.data?.pages.flatMap((response) => response.data.list) ||
@@ -46,12 +62,9 @@ const Main = () => {
     <main className={applyClass(S.MAIN_TAILWIND_CLASS.ROOT)}>
       <MainTemplate
         recommandSection={{
-          isLoading: topBannerQuery.isLoading,
           items: recommendNftItems,
-          skeletonItemCount: 10,
         }}
         nftTabSection={{
-          isLoading: scrollListQuery.isLoading,
           listItems: [nftItems, nftItems, nftItems],
           tabItems: TABS,
           skeletonItemCount: 10,

@@ -1,34 +1,20 @@
-/**
- * 추천 NFT 아이템
- */
-interface IRecommendedNft {
-  /**
-   * 아이디
-   */
-  id: number;
-  /**
-   * 제목
-   */
-  title: string;
-  /**
-   * 설명
-   */
-  description: string;
-  /**
-   * 이미지 URL
-   */
-  imageUrl?: string;
-  /**
-   * 푸터
-   */
-  footer: string;
-}
+import type { TExtendsVirtualScrollerComponentProps } from '@/components/molecules/VirtualScroller/types';
+import * as ServiceTypes from '@/api/service/types';
 
-interface IRecommandSection {
+/**
+ * NFT 카드
+ */
+export type TNftCard = Extract<
+  ServiceTypes.ExtractArrayType<ServiceTypes.TGetTopBannerResponse['list']>,
+  ServiceTypes.ExtractArrayType<ServiceTypes.TGetScrollListResponse['list']>
+>;
+
+interface IRecommandSection
+  extends Pick<TExtendsVirtualScrollerComponentProps, 'infiniteScrollStatus'> {
   /**
    * 아이템
    */
-  items: Array<IRecommendedNft>;
+  items: Array<TNftCard | null>;
 }
 
 /**

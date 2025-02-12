@@ -38,6 +38,7 @@ import { VirtualScroller } from '@/components/molecules/VirtualScroller';
  * Atoms
  */
 import { Button } from '@/components/atoms/Button';
+import { Skeleton } from '@/components/atoms/Skeleton';
 
 /**
  * Utils
@@ -49,12 +50,18 @@ import { applyClass } from '@/utils/style/tailwind';
  */
 import * as S from './Main.styles';
 import * as T from './types';
-import { Skeleton } from '@/components/atoms/Skeleton';
+
+/**
+ * 추천 아이템 타입 가드
+ */
+function isRecommendItem(item: T.TNftCard | null): item is T.TNftCard {
+  return item !== null;
+}
 
 const MainTemplate = (
   { recommandSection, nftTabSection }: T.IMainTemplateProps = {
-    recommandSection: { items: [], isLoading: true, skeletonItemCount: 5 },
-    nftTabSection: { listItems: [], tabItems: [], isLoading: true },
+    recommandSection: { items: [] },
+    nftTabSection: { listItems: [], tabItems: [] },
   },
 ) => {
   const { tab, setTab } = useMainStore((state) => state);
@@ -67,17 +74,6 @@ const MainTemplate = (
       gap: 8,
     };
   }, []);
-
-  const recommandSectionItems = useMemo(() => {
-    return recommandSection.isLoading
-      ? [
-          ...recommandSection.items,
-          ...Array.from({
-            length: recommandSection.skeletonItemCount as number,
-          }),
-        ]
-      : recommandSection.items;
-  }, [recommandSection]);
 
   return (
     <>
@@ -101,15 +97,14 @@ const MainTemplate = (
         <HorizontalSlider
           className={applyClass(S.RECOMMENDED_NFT_TAILWIND_CLASS.SCROLLER)}
         >
-          {recommandSectionItems.map((item, index) => {
-            // INFO: 로딩 상태일 때 데이터가 없는 경우 더미 데이터를 보여줌
-            if (recommandSection.isLoading) {
+          {recommandSection.items.map((item, _index) => {
+            if (!isRecommendItem(item)) {
               return (
                 <ImageCard
                   className={applyClass(
                     S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.ROOT,
                   )}
-                  key={index}
+                  key={_index}
                 >
                   <ImageCardHeader
                     className={applyClass(
@@ -157,7 +152,6 @@ const MainTemplate = (
                 </ImageCard>
               );
             }
-
             return (
               <ImageCard
                 className={applyClass(
@@ -200,17 +194,6 @@ const MainTemplate = (
               </ImageCard>
             );
           })}
-          {recommandSection.isLoading &&
-            Array.from({ length: recommandSection.loadingItemCount }).map(
-              (_, index) => (
-                <ImageCard
-                  key={index}
-                  className={applyClass(
-                    S.RECOMMENDED_NFT_TAILWIND_CLASS.IMAGE_CARD.ROOT,
-                  )}
-                />
-              ),
-            )}
         </HorizontalSlider>
       </section>
 

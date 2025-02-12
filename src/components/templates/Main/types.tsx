@@ -3,7 +3,7 @@ import * as ServiceTypes from '@/api/service/types';
 /**
  * NFT 카드
  */
-type TNftCard = Extract<
+export type TNftCard = Extract<
   ServiceTypes.ExtractArrayType<ServiceTypes.TGetTopBannerResponse['list']>,
   ServiceTypes.ExtractArrayType<ServiceTypes.TGetScrollListResponse['list']>
 >;
@@ -13,15 +13,11 @@ type TCategory = ServiceTypes.TGetScrollListParams['category'];
 /**
  * 추천 NFT 섹션
  */
-interface IRecommandSection {
-  /**
-   * 데이터 페칭 로딩 여부
-   */
-  isLoading: boolean;
+export interface IRecommandSection {
   /**
    * 아이템
    */
-  items: Array<TNftCard>;
+  items: Array<TNftCard | null>;
   /**
    * 로딩 상태일 때 보여줄 아이템 수
    */
@@ -45,11 +41,6 @@ export interface ITabItem {
  * NFT 카테고리 섹션
  */
 export interface INftTabSection {
-  /**
-   * 데이터 페칭 로딩 여부
-   */
-  isLoading: boolean;
-
   /**
    * 리스트 아이템
    */

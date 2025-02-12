@@ -1,33 +1,44 @@
+import { useMemo } from 'react';
+
 import { applyClass } from '@/utils/style/tailwind';
+
+/**
+ * Store
+ */
+import { useFetchSubPageInit } from '@/store/queries/nft';
 
 /**
  * Templates
  */
 import SubTemplate from '@/components/templates/Sub';
-import { getRandomImageUrl } from '@/utils/api/image';
 
 import * as S from './Sub.styles';
 
-// INFO: 추천 NFT 더미 데이터
-const DUMMY_RECOMMEND_NFT = Array.from({ length: 15 }, (_, index) => ({
-  id: index,
-  title: `title-${index}`,
-  description: `description-${index}`,
-  imageUrl: getRandomImageUrl({
-    width: 180,
-    height: 180,
-    extension: 'webp',
-    isRandom: true,
-  }),
-  footer: `footer-${index}`,
-}));
-
 const Sub = () => {
+  const { recommendNftQuery } = useFetchSubPageInit();
+
+  /**
+   * 추천 NFT 아이템 데이터
+   */
+  const recommendNftItems = useMemo(() => {
+    return (
+      recommendNftQuery.data?.pages.flatMap((page) => page.data.list) || []
+    );
+  }, [recommendNftQuery.data]);
+
   return (
     <main className={applyClass(S.SUB_TAILWIND_CLASS.ROOT)}>
       <SubTemplate
         recommandSection={{
-          items: DUMMY_RECOMMEND_NFT,
+          items: recommendNftItems,
+          infiniteScrollStatus: {
+            isFetching: recommendNftQuery.isFetching,
+            isFetchingNextPage: recommendNftQuery.isFetchingNextPage,
+            hasNextPage: recommendNftQuery.hasNextPage,
+            fetchNextPage: recommendNftQuery.fetchNextPage,
+            itemsCount: recommendNftItems.length,
+            loadingPlaceholderCount: 10,
+          },
         }}
       />
     </main>
