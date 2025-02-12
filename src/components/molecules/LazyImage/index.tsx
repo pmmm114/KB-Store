@@ -39,7 +39,13 @@ const LazyImage = <T extends React.ElementType = 'img'>({
 
   if (!src)
     return (
-      <Skeleton className={applyClass(S.LAZY_IMAGE_TAILWIND_CLASS.SKELETON)} />
+      <div
+        className={applyClass(S.LAZY_IMAGE_TAILWIND_CLASS.ROOT, rootClassName)}
+      >
+        <Skeleton
+          className={applyClass(S.LAZY_IMAGE_TAILWIND_CLASS.SKELETON)}
+        />
+      </div>
     );
 
   return (
