@@ -1,6 +1,12 @@
+import { useCallback } from 'react';
 import { useMainStore } from '@/libs/zustand/store';
+import {
+  useInfiniteQuery,
+  infiniteQueryOptions,
+  keepPreviousData,
+  useQueryClient,
+} from '@tanstack/react-query';
 
-import { useInfiniteQuery, infiniteQueryOptions } from '@tanstack/react-query';
 import { CLIENT_API } from '@/api/service';
 
 import * as T from './types';
@@ -11,6 +17,7 @@ import * as T from './types';
 const DEFAULT_INFINITE_QUERY_OPTIONS = {
   refetchOnWindowFocus: false,
   retry: 0,
+  gcTime: 1000 * 60 * 5,
 } as const satisfies Partial<Parameters<typeof infiniteQueryOptions>[0]>;
 
 /**
@@ -18,25 +25,28 @@ const DEFAULT_INFINITE_QUERY_OPTIONS = {
  */
 const QUERY_KEYS = {
   NFT: {
-    index: () => ['nft'] as const,
-    fetchInfiniteTopBanner: () =>
-      [QUERY_KEYS.NFT.index(), 'fetchInfiniteTopBanner'] as const,
-    fetchInfiniteScrollList: () =>
-      [QUERY_KEYS.NFT.index(), 'fetchInfiniteScrollList'] as const,
+    index: () => ['nft'],
+    fetchInfiniteTopBanner: () => [
+      QUERY_KEYS.NFT.index(),
+      'fetchInfiniteTopBanner',
+    ],
+    fetchInfiniteScrollList: () => [
+      QUERY_KEYS.NFT.index(),
+      'fetchInfiniteScrollList',
+    ],
   },
-};
+} as const;
 
 /**
  * 쿼리 옵션 팩토리
  */
-export const QUERIES = {
+export const QUERY_OPTIONS = {
   NFT: {
-    fetchInfiniteTopBanner: (params: T.TUseFetchTopBannerParams) =>
+    fetchInfiniteTopBanner: () =>
       infiniteQueryOptions({
         ...DEFAULT_INFINITE_QUERY_OPTIONS,
         queryKey: [
-          QUERY_KEYS.NFT.fetchInfiniteTopBanner(),
-          ...Object.values(params),
+          ...QUERY_KEYS.NFT.fetchInfiniteTopBanner().flatMap((key) => key),
         ],
         queryFn: ({ pageParam }) =>
           CLIENT_API.DemoControllerApi.getTopBanner({ page: pageParam }),
@@ -57,8 +67,7 @@ export const QUERIES = {
       infiniteQueryOptions({
         ...DEFAULT_INFINITE_QUERY_OPTIONS,
         queryKey: [
-          QUERY_KEYS.NFT.fetchInfiniteScrollList(),
-          ...Object.values(params),
+          ...QUERY_KEYS.NFT.fetchInfiniteScrollList().flatMap((key) => key),
         ],
         queryFn: ({ pageParam }) =>
           CLIENT_API.DemoControllerApi.getScrollList({
@@ -82,29 +91,27 @@ export const QUERIES = {
 };
 
 interface IUseInfiniteFetchTopBannerParams {
-  params: T.TUseFetchTopBannerParams;
   options?: T.TUseInfiniteOptions<
-    ReturnType<typeof CLIENT_API.DemoControllerApi.getTopBanner>,
-    number
+    Awaited<ReturnType<typeof CLIENT_API.DemoControllerApi.getTopBanner>>
   >;
 }
+
 /**
  * Top NFT리스트 무한 스크롤 조회
  */
 export const useInfiniteFetchTopBanner = ({
-  params,
   options,
-}: IUseInfiniteFetchTopBannerParams) =>
-  useInfiniteQuery({
-    ...QUERIES.NFT.fetchInfiniteTopBanner(params),
+}: IUseInfiniteFetchTopBannerParams) => {
+  return useInfiniteQuery({
+    ...QUERY_OPTIONS.NFT.fetchInfiniteTopBanner(),
     ...options,
   });
+};
 
 interface IUseInfiniteFetchScrollListParams {
   params: T.TUseFetchScrollListParams;
   options?: T.TUseInfiniteOptions<
-    ReturnType<typeof CLIENT_API.DemoControllerApi.getScrollList>,
-    number
+    Awaited<ReturnType<typeof CLIENT_API.DemoControllerApi.getScrollList>>
   >;
 }
 /**
@@ -115,7 +122,7 @@ export const useInfiniteFetchScrollList = ({
   options,
 }: IUseInfiniteFetchScrollListParams) =>
   useInfiniteQuery({
-    ...QUERIES.NFT.fetchInfiniteScrollList(params),
+    ...QUERY_OPTIONS.NFT.fetchInfiniteScrollList(params),
     ...options,
   });
 
@@ -125,21 +132,50 @@ export const useInfiniteFetchScrollList = ({
 export const useFetchMainPageInit = () => {
   const { tab } = useMainStore();
   const topBannerQuery = useInfiniteFetchTopBanner({
-    params: { page: 1 },
+    options: {
+      refetchOnMount: 'always',
+      placeholderData: keepPreviousData,
+    },
   });
   const scrollListQuery = useInfiniteFetchScrollList({
     params: { category: tab.key, page: 1 },
   });
 
   // INFO: 모든 쿼리 새로고침
-  const refetch = () => {
+  const refetch = useCallback(() => {
     topBannerQuery.refetch();
     scrollListQuery.refetch();
-  };
+  }, [topBannerQuery, scrollListQuery]);
 
   return {
     topBannerQuery,
     scrollListQuery,
     refetch,
+  };
+};
+
+/**
+ * 서브페이지 초기 조회
+ */
+export const useFetchSubPageInit = () => {
+  const queryClient = useQueryClient();
+
+  const recommendNftQuery = useInfiniteFetchTopBanner({
+    options: {
+      initialData: () =>
+        queryClient.getQueryData(
+          QUERY_OPTIONS.NFT.fetchInfiniteTopBanner().queryKey,
+        ),
+      initialDataUpdatedAt: () => {
+        return queryClient.getQueryState(
+          QUERY_OPTIONS.NFT.fetchInfiniteTopBanner().queryKey,
+        )?.dataUpdatedAt;
+      }, // INFO: 캐시된 데이터의 마지막 업데이트 시점을 가져옵니다.
+      staleTime: 5000, // INFO: 데이터를 절대 stale로 표시하지 않음
+    },
+  });
+
+  return {
+    recommendNftQuery,
   };
 };
