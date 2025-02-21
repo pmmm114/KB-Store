@@ -73,6 +73,7 @@ export const QUERY_OPTIONS = {
     fetchInfiniteScrollList: (params: T.TUseFetchScrollListParams) =>
       infiniteQueryOptions({
         ...DEFAULT_INFINITE_QUERY_OPTIONS,
+        gcTime: 0,
         queryKey: [
           ...QUERY_KEYS.NFT.fetchInfiniteScrollList().flatMap((key) => key),
           params.category,
