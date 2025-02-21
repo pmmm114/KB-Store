@@ -48,8 +48,15 @@ export const QUERY_OPTIONS = {
         queryKey: [
           ...QUERY_KEYS.NFT.fetchInfiniteTopBanner().flatMap((key) => key),
         ],
-        queryFn: ({ pageParam }) =>
-          CLIENT_API.DemoControllerApi.getTopBanner({ page: pageParam }),
+        queryFn: ({ pageParam, signal }) =>
+          CLIENT_API.DemoControllerApi.getTopBanner(
+            {
+              page: pageParam,
+            },
+            {
+              signal,
+            },
+          ),
         initialPageParam: 1,
         getNextPageParam: (
           lastPage,
@@ -68,12 +75,18 @@ export const QUERY_OPTIONS = {
         ...DEFAULT_INFINITE_QUERY_OPTIONS,
         queryKey: [
           ...QUERY_KEYS.NFT.fetchInfiniteScrollList().flatMap((key) => key),
+          params.category,
         ],
-        queryFn: ({ pageParam }) =>
-          CLIENT_API.DemoControllerApi.getScrollList({
-            category: params.category,
-            page: pageParam,
-          }),
+        queryFn: ({ pageParam, signal }) =>
+          CLIENT_API.DemoControllerApi.getScrollList(
+            {
+              category: params.category,
+              page: pageParam,
+            },
+            {
+              signal,
+            },
+          ),
         initialPageParam: 1,
         getNextPageParam: (
           lastPage,
@@ -138,7 +151,7 @@ export const useFetchMainPageInit = () => {
     },
   });
   const scrollListQuery = useInfiniteFetchScrollList({
-    params: { category: tab.key, page: 1 },
+    params: { category: tab.key },
   });
 
   // INFO: 모든 쿼리 새로고침
