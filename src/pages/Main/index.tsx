@@ -51,7 +51,7 @@ const Main = () => {
   /**
    * NFT 탭 아이템 데이터
    */
-  const nftItems = useMemo(
+  const nftTabItems = useMemo(
     () =>
       scrollListQuery.data?.pages.flatMap((response) => response.data.list) ||
       [],
@@ -65,9 +65,17 @@ const Main = () => {
           items: recommendNftItems,
         }}
         nftTabSection={{
-          listItems: [nftItems, nftItems, nftItems],
+          items: nftTabItems,
           tabItems: TABS,
-          skeletonItemCount: 10,
+          infiniteScrollStatus: {
+            isFetching: scrollListQuery.isFetching,
+            isFetchingNextPage: scrollListQuery.isFetchingNextPage,
+            hasNextPage: scrollListQuery.hasNextPage,
+            fetchNextPage: scrollListQuery.fetchNextPage,
+            itemsCount: nftTabItems.length,
+            loadingPlaceholderCount: 10,
+            fetchingTriggerIndexFromEnd: 3,
+          },
         }}
       />
     </main>

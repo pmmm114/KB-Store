@@ -52,7 +52,7 @@ const getTopBanner = createMswHandler({
       },
     });
 
-    await sleep(10000);
+    await sleep(1500);
     // INFO: 페이지 넘버가 5 이상이면 더 이상 데이터가 없음
     return HttpResponse.json({
       list,
@@ -71,7 +71,7 @@ const getScrollList = createMswHandler<
 >({
   method: 'GET',
   path: '/api/scroll-list',
-  handlerFunction: ({ request }) => {
+  handlerFunction: async ({ request }) => {
     const url = new URL(request.url);
     const searchParams = new URLSearchParams(url.search);
     const searchParamsPage = searchParams.get('page');
@@ -115,6 +115,8 @@ const getScrollList = createMswHandler<
         };
       },
     });
+
+    await sleep(1500);
 
     // INFO: 페이지 넘버가 5 이상이면 더 이상 데이터가 없음
     return HttpResponse.json({

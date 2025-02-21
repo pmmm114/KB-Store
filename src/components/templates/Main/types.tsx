@@ -1,3 +1,4 @@
+import type { TExtendsVirtualScrollerComponentProps } from '@/components/molecules/VirtualScroller/types';
 import * as ServiceTypes from '@/api/service/types';
 
 /**
@@ -40,19 +41,16 @@ export interface ITabItem {
 /**
  * NFT 카테고리 섹션
  */
-export interface INftTabSection {
+export interface INftTabSection
+  extends Pick<TExtendsVirtualScrollerComponentProps, 'infiniteScrollStatus'> {
   /**
    * 리스트 아이템
    */
-  listItems: Array<Array<TNftCard>>;
+  items: Array<TNftCard>;
   /**
    * 탭 아이템
    */
   tabItems: Array<ITabItem>;
-  /**
-   * 로딩 상태일 때 보여줄 아이템 수
-   */
-  skeletonItemCount?: number;
 }
 
 /**

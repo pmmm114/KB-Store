@@ -61,19 +61,27 @@ function isRecommendItem(item: T.TNftCard | null): item is T.TNftCard {
 const MainTemplate = (
   { recommandSection, nftTabSection }: T.IMainTemplateProps = {
     recommandSection: { items: [] },
-    nftTabSection: { listItems: [], tabItems: [] },
+    nftTabSection: { items: [], tabItems: [] },
   },
 ) => {
   const { tab, setTab } = useMainStore((state) => state);
 
   const VIRTUAL_SCROLL_OPTIONS = useMemo(() => {
     return {
+      count: nftTabSection.infiniteScrollStatus?.isFetching
+        ? nftTabSection.items.length +
+          (nftTabSection.infiniteScrollStatus?.loadingPlaceholderCount || 0)
+        : nftTabSection.items.length,
       estimateSize: () => 500,
       overscan: 2,
       lanes: 1,
       gap: 8,
     };
-  }, []);
+  }, [
+    nftTabSection.infiniteScrollStatus?.isFetching,
+    nftTabSection.items.length,
+    nftTabSection.infiniteScrollStatus?.loadingPlaceholderCount,
+  ]);
 
   return (
     <>
@@ -222,7 +230,7 @@ const MainTemplate = (
               </TabsTrigger>
             ))}
           </TabsList>
-          {nftTabSection.tabItems.map((tabItem, tabIndex) => (
+          {nftTabSection.tabItems.map((tabItem, _tabIndex) => (
             <TabsContent key={tabItem.key} value={tabItem.key}>
               <VirtualScroller
                 columnsGap={1}
@@ -231,9 +239,64 @@ const MainTemplate = (
                 )}
                 virtualizerOptions={{
                   ...VIRTUAL_SCROLL_OPTIONS,
-                  count: nftTabSection.listItems[tabIndex].length,
                 }}
+                infiniteScrollStatus={nftTabSection.infiniteScrollStatus}
                 renderItem={(index) => {
+                  if (!nftTabSection.items[index]) {
+                    return (
+                      <ImageCard
+                        className={applyClass(
+                          S.NFT_BY_CATEGORY_TAILWIND_CLASS.IMAGE_CARD.ROOT,
+                        )}
+                        key={index}
+                      >
+                        <ImageCardHeader
+                          className={applyClass(
+                            S.NFT_BY_CATEGORY_TAILWIND_CLASS.IMAGE_CARD.HEADER,
+                          )}
+                        >
+                          <LazyImage
+                            src={''}
+                            rootClassName={applyClass(
+                              S.NFT_BY_CATEGORY_TAILWIND_CLASS.IMAGE_CARD
+                                .LAZY_IMAGE.ROOT,
+                            )}
+                            className={applyClass(
+                              S.NFT_BY_CATEGORY_TAILWIND_CLASS.IMAGE_CARD
+                                .LAZY_IMAGE.IMAGE,
+                            )}
+                          />
+                        </ImageCardHeader>
+                        <ImageCardContent>
+                          <ImageCardTitle>
+                            <Skeleton
+                              className={applyClass(
+                                S.NFT_BY_CATEGORY_TAILWIND_CLASS.IMAGE_CARD
+                                  .SKELETON.TITLE,
+                              )}
+                            />
+                          </ImageCardTitle>
+                          <ImageCardDescription>
+                            <Skeleton
+                              className={applyClass(
+                                S.NFT_BY_CATEGORY_TAILWIND_CLASS.IMAGE_CARD
+                                  .SKELETON.DESCRIPTION,
+                              )}
+                            />
+                          </ImageCardDescription>
+                        </ImageCardContent>
+                        <ImageCardFooter>
+                          <Skeleton
+                            className={applyClass(
+                              S.NFT_BY_CATEGORY_TAILWIND_CLASS.IMAGE_CARD
+                                .SKELETON.FOOTER,
+                            )}
+                          />
+                        </ImageCardFooter>
+                      </ImageCard>
+                    );
+                  }
+
                   return (
                     <ImageCard
                       className={applyClass(
@@ -246,9 +309,7 @@ const MainTemplate = (
                         )}
                       >
                         <LazyImage
-                          src={
-                            nftTabSection.listItems[tabIndex][index].imageUrl
-                          }
+                          src={nftTabSection.items[index].imageUrl}
                           rootClassName={applyClass(
                             S.NFT_BY_CATEGORY_TAILWIND_CLASS.IMAGE_CARD
                               .LAZY_IMAGE.ROOT,
@@ -261,10 +322,10 @@ const MainTemplate = (
                       </ImageCardHeader>
                       <ImageCardContent>
                         <ImageCardTitle>
-                          {nftTabSection.listItems[tabIndex][index].title}
+                          {nftTabSection.items[index].title}
                         </ImageCardTitle>
                         <ImageCardDescription>
-                          {nftTabSection.listItems[tabIndex][index].description}
+                          {nftTabSection.items[index].description}
                         </ImageCardDescription>
                       </ImageCardContent>
                       <ImageCardFooter>
@@ -274,7 +335,7 @@ const MainTemplate = (
                               .TEXT,
                           )}
                         >
-                          {nftTabSection.listItems[tabIndex][index].footer}
+                          {nftTabSection.items[index].footer}
                         </span>
                       </ImageCardFooter>
                     </ImageCard>

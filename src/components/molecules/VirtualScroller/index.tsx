@@ -41,28 +41,37 @@ const VirtualScroller = <T extends React.ElementType = 'div'>({
     ...virtualizerOptions,
   });
 
+  /**
+   * 무한 스크롤 처리
+   */
   useEffect(() => {
+    // INFO: 무한 스크롤 상태가 없으면 종료
+    if (!infiniteScrollStatus) return;
+
     // INFO: 마지막 아이템 조회
     const [lastItem] = [...virtualizer.getVirtualItems()].reverse();
 
     // INFO: 마지막 아이템이 없으면 종료
     if (!lastItem) return;
 
+    // INFO: 무한 스크롤 조건 처리
     if (
       lastItem.index >=
-        infiniteScrollStatus.itemsCount -
-          infiniteScrollStatus.loadingPlaceholderCount &&
-      infiniteScrollStatus.hasNextPage &&
-      !infiniteScrollStatus.isFetchingNextPage
+        infiniteScrollStatus?.itemsCount -
+          infiniteScrollStatus?.fetchingTriggerIndexFromEnd &&
+      infiniteScrollStatus?.hasNextPage &&
+      !infiniteScrollStatus?.isFetchingNextPage
     ) {
-      infiniteScrollStatus.fetchNextPage?.();
+      infiniteScrollStatus?.fetchNextPage?.();
     }
   }, [
-    infiniteScrollStatus.hasNextPage,
-    infiniteScrollStatus.isFetchingNextPage,
-    infiniteScrollStatus.loadingPlaceholderCount,
-    infiniteScrollStatus.fetchNextPage,
-    infiniteScrollStatus.itemsCount,
+    infiniteScrollStatus,
+    infiniteScrollStatus?.hasNextPage,
+    infiniteScrollStatus?.fetchingTriggerIndexFromEnd,
+    infiniteScrollStatus?.isFetchingNextPage,
+    infiniteScrollStatus?.fetchNextPage,
+    infiniteScrollStatus?.itemsCount,
+    virtualizer,
     virtualizer.getVirtualItems(),
   ]);
 

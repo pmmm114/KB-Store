@@ -7,7 +7,10 @@ import {
 import * as ServiceTypes from '@/api/service/types';
 
 export type TUseFetchTopBannerParams = ServiceTypes.TGetTopBannerParams;
-export type TUseFetchScrollListParams = ServiceTypes.TGetScrollListParams;
+export type TUseFetchScrollListParams = Omit<
+  ServiceTypes.TGetScrollListParams,
+  'page'
+>;
 
 /**
  * useInfiniteQuery에 들어갈 options 타입

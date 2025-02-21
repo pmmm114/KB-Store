@@ -35,7 +35,7 @@ export interface ICardItem {
   footer: string;
 }
 
-export interface IGetTopBannerReq extends QueryParamsType {
+export interface IGetTopBannerReq {
   page: number;
 }
 export interface IGetTopBannerRes {
@@ -44,7 +44,7 @@ export interface IGetTopBannerRes {
   hasNext: boolean;
 }
 
-export interface IGetScrollListReq extends QueryParamsType {
+export interface IGetScrollListReq {
   category: TCategory;
   page: number;
 }

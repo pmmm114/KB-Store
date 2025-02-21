@@ -58,6 +58,11 @@ export const NFT_BY_CATEGORY_TAILWIND_CLASS = {
     FOOTER: {
       TEXT: (className) => cn('line-clamp-1 break-all', className),
     },
+    SKELETON: {
+      TITLE: (className) => cn('h-7', className),
+      DESCRIPTION: (className) => cn('h-5', className),
+      FOOTER: (className) => cn('h-5 flex-auto', className),
+    },
   },
   VIRTUAL_SCROLLER: {
     INNER: (className) => cn('mx-4 my-3', className),

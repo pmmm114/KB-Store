@@ -22,6 +22,10 @@ export type TInfiniteScrollStatus = Partial<
    * 호출한 데이터 리스의 길이
    */
   itemsCount?: number;
+  /**
+   * 무한 스크롤을 호출할 인덱스, 뒤에서 계산
+   */
+  fetchingTriggerIndexFromEnd?: number;
 };
 /**
  * VirtualScroller의 기본 Props
