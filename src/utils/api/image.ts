@@ -13,9 +13,8 @@ interface IGetRandomImageParams {
  * @returns 랜덤 이미지 주소
  */
 export function getRandomImageUrl(params: IGetRandomImageParams): string {
-  const { width, height, extension, isRandom = true } = params;
-  const randomSeed = isRandom ? `?random=${Math.random()}` : '';
-  const url = `${RANDOM_IMAGE_URL}/${width}/${height}.${extension}${randomSeed}`;
+  const { width, height, extension } = params;
+  const url = `${RANDOM_IMAGE_URL}/seed/${Math.random()}/${width}/${height}.${extension}`;
 
   return url;
 }
