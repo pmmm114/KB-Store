@@ -28,5 +28,10 @@ export const ALL_RECOMMEND_NFT_TAILWIND_CLASS = {
     FOOTER: {
       TEXT: (className) => cn('line-clamp-1 break-all', className),
     },
+    SKELETON: {
+      TITLE: (className) => cn('h-7', className),
+      DESCRIPTION: (className) => cn('h-5', className),
+      FOOTER: (className) => cn('h-5 flex-auto', className),
+    },
   },
 } as const satisfies ITailwindClass;

@@ -1,60 +1,56 @@
-/**
- * NFT 카테고리
- */
-type TCategory = 'ALL' | 'ART' | 'GAME';
+import type { TExtendsVirtualScrollerComponentProps } from '@/components/molecules/VirtualScroller/types';
+import * as ServiceTypes from '@/api/service/types';
 
 /**
  * NFT 카드
  */
-interface INftCard {
-  /**
-   * 아이디
-   */
-  id: number;
-  /**
-   * 제목
-   */
-  title: string;
-  /**
-   * 설명
-   */
-  description: string;
-  /**
-   * 이미지 URL
-   */
-  imageUrl?: string;
-  /**
-   * 카테고리
-   */
-  category: Exclude<TCategory, 'ALL'>;
-  /**
-   * 푸터
-   */
-  footer: string;
-}
+export type TNftCard = Extract<
+  ServiceTypes.ExtractArrayType<ServiceTypes.TGetTopBannerResponse['list']>,
+  ServiceTypes.ExtractArrayType<ServiceTypes.TGetScrollListResponse['list']>
+>;
+
+type TCategory = ServiceTypes.TGetScrollListParams['category'];
 
 /**
  * 추천 NFT 섹션
  */
-interface IRecommandSection {
+export interface IRecommandSection {
   /**
    * 아이템
    */
-  items: Array<INftCard>;
+  items: Array<TNftCard | null>;
+  /**
+   * 로딩 상태일 때 보여줄 아이템 수
+   */
+  skeletonItemCount?: number;
 }
 
 /**
+ * 탭 아이템
+ */
+export interface ITabItem {
+  /**
+   * 키
+   */
+  key: TCategory;
+  /**
+   * 레이블
+   */
+  label: string;
+}
+/**
  * NFT 카테고리 섹션
  */
-interface INftTabSection {
+export interface INftTabSection
+  extends Pick<TExtendsVirtualScrollerComponentProps, 'infiniteScrollStatus'> {
   /**
    * 리스트 아이템
    */
-  listItems: Array<Array<INftCard>>;
+  items: Array<TNftCard>;
   /**
    * 탭 아이템
    */
-  tabItems: Array<{ [key in TCategory]?: string }>;
+  tabItems: Array<ITabItem>;
 }
 
 /**

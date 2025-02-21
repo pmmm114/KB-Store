@@ -1,42 +1,10 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useWindowVirtualizer } from '@tanstack/react-virtual';
 
 import { applyClass } from '@/utils/style/tailwind';
 
 import * as S from './styles';
-
-/**
- * useWindowVirtualizer의 파라미터 타입 추론
- */
-type UseWindowVirtualizerParams = Parameters<typeof useWindowVirtualizer>[0];
-
-/**
- * VirtualScroller의 기본 Props
- */
-interface IVirtualScrollerProps<T extends React.ElementType> {
-  as?: T;
-  /**
-   * 열 간격
-   */
-  columnsGap?: number;
-  /**
-   * 가상 스크롤러 옵션
-   */
-  virtualizerOptions: UseWindowVirtualizerParams;
-  /**
-   * 가상화 높이가 정해지는 컨테이너의 ClassName
-   */
-  scrollInnerClassName?: string;
-  /**
-   * 아이템 렌더링 함수
-   */
-  renderItem: (index: number) => React.ReactNode;
-}
-/**
- * VirtualScroller ComponentProps
- */
-export type TExtendsVirtualScrollerComponentProps<T extends React.ElementType> =
-  IVirtualScrollerProps<T> & React.ComponentPropsWithRef<T>;
+import * as T from './types';
 
 /**
  * react-virtual 가상 스크롤러를 지원하는 컴포넌트로 치환
@@ -47,11 +15,12 @@ const VirtualScroller = <T extends React.ElementType = 'div'>({
   as,
   columnsGap = 0,
   virtualizerOptions,
+  infiniteScrollStatus,
   scrollInnerClassName,
   renderItem,
   className,
   ...rest
-}: TExtendsVirtualScrollerComponentProps<T>) => {
+}: T.TExtendsVirtualScrollerComponentProps<T>) => {
   const Component = as || 'div';
   /**
    * 스크롤 컨테이너 Ref
@@ -61,7 +30,7 @@ const VirtualScroller = <T extends React.ElementType = 'div'>({
   /**
    * 가상 스크롤러
    */
-  const defaultOptions: UseWindowVirtualizerParams = {
+  const defaultOptions: T.TUseWindowVirtualizerParams = {
     count: 0,
     estimateSize: () => 0,
     scrollMargin: listRef.current?.offsetTop ?? 0,
@@ -71,6 +40,40 @@ const VirtualScroller = <T extends React.ElementType = 'div'>({
     ...defaultOptions,
     ...virtualizerOptions,
   });
+
+  /**
+   * 무한 스크롤 처리
+   */
+  useEffect(() => {
+    // INFO: 무한 스크롤 상태가 없으면 종료
+    if (!infiniteScrollStatus) return;
+
+    // INFO: 마지막 아이템 조회
+    const [lastItem] = [...virtualizer.getVirtualItems()].reverse();
+
+    // INFO: 마지막 아이템이 없으면 종료
+    if (!lastItem) return;
+
+    // INFO: 무한 스크롤 조건 처리
+    if (
+      lastItem.index >=
+        infiniteScrollStatus?.itemsCount -
+          infiniteScrollStatus?.fetchingTriggerIndexFromEnd &&
+      infiniteScrollStatus?.hasNextPage &&
+      !infiniteScrollStatus?.isFetchingNextPage
+    ) {
+      infiniteScrollStatus?.fetchNextPage?.();
+    }
+  }, [
+    infiniteScrollStatus,
+    infiniteScrollStatus?.hasNextPage,
+    infiniteScrollStatus?.fetchingTriggerIndexFromEnd,
+    infiniteScrollStatus?.isFetchingNextPage,
+    infiniteScrollStatus?.fetchNextPage,
+    infiniteScrollStatus?.itemsCount,
+    virtualizer,
+    virtualizer.getVirtualItems(),
+  ]);
 
   return (
     <Component
