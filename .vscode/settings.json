@@ -1,5 +1,5 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsserver.log": "verbose",
   // 파일을 저장할 때마다 `eslint` 규칙에 따라 자동으로 코드를 수정
@@ -14,7 +14,7 @@
   // Prettier
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "prettier.configPath": ".prettierrc.mjs",
-  "prettier.prettierPath": "./node_modules/prettier",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
   // 자동 가져오기는 기본적으로 tsconfig에 정의된 절대경로를 사용
   "eslint.format.enable": false,
   "eslint.ignoreUntitled": false,
@@ -24,8 +24,22 @@
     "*.css": "tailwindcss"
   },
   "tailwindCSS.experimental.classRegex": [
-    ["(?:cn)\\(([^)]*)\\)", "\"([^\"]*)\""],
-    ["(?:cn)\\(([^)]*)\\)", "'([^']*')"],
-    ["(?:cn)\\(([^)]*)\\)", "`([^`]*`)"]
-  ]
+    [
+      "(?:cn)\\(([^)]*)\\)",
+      "\"([^\"]*)\""
+    ],
+    [
+      "(?:cn)\\(([^)]*)\\)",
+      "'([^']*')"
+    ],
+    [
+      "(?:cn)\\(([^)]*)\\)",
+      "`([^`]*`)"
+    ]
+  ],
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.nodePath": ".yarn/sdks"
 }
