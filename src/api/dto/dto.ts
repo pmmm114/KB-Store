@@ -1,5 +1,3 @@
-import { QueryParamsType } from '@/api/client/http-client';
-
 /**
  * NFT 카테고리
  */
