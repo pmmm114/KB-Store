@@ -8,5 +8,10 @@
     "build": "tsc -b && vite build",
     "lint": "nx eslint:lint --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^9.0.4",
+    "@types/three": "^0.174.0",
+    "three": "^0.174.0"
   }
 }
