@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter react-example-01 dev"
+    "dev:react-example-01": "pnpm --filter react-example-01 dev",
+    "dev:threejs-face": "pnpm --filter threejs-face dev"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",
