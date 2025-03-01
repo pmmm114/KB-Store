@@ -1,0 +1,21 @@
+{
+  "name": "react-example-01",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:csb": "vite --config vite.config.codesandbox.ts",
+    "build": "tsc -b && vite build",
+    "lint": "nx eslint:lint --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "add-shadcn-ui": "TS_NODE_PROJECT=tsconfig.app.json npx shadcn@latest add",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}
