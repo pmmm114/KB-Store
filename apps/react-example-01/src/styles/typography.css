@@ -1,0 +1,31 @@
+@utility typography-h1 {
+  @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+}
+
+@utility typography-h2 {
+  @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+}
+
+@utility typography-h3 {
+  @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+}
+
+@utility typography-h4 {
+  @apply scroll-m-20 text-xl font-semibold tracking-tight;
+}
+
+@utility typography-h5 {
+  @apply scroll-m-20 text-lg font-semibold tracking-tight;
+}
+
+@utility typography-h6 {
+  @apply scroll-m-20 text-base font-semibold tracking-tight;
+}
+
+@utility typography-p {
+  @apply leading-7 [&:not(:first-child)]:mt-6;
+}
+
+@utility typography-blockquote {
+  @apply mt-6 border-l-2 pl-6 italic;
+}
