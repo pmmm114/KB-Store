@@ -6,4 +6,4 @@
 각 apps의 Readme에 기술
 
 ## Demo
-[https://githubbox.com/pmmm114/react-example-01/tree/develop](https://github.com/pmmm114/KB-Store/tree/develop)
+[https://githubbox.com/pmmm114/KB-Store/tree/develop](https://github.com/pmmm114/KB-Store/tree/develop)
