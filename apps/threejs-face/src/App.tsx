@@ -1,33 +1,26 @@
-import { Canvas, CameraProps } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
+import { Sky } from '@react-three/drei';
 
+import Outside from '@/components/environment/Lights/Outside/Outside';
 import Museum from '@/canvas/Museum';
-import { PointerLockControls } from '@react-three/drei';
+import Iam from '@/components/environment/Cameras/Iam/Iam';
 
 import '@/styles/_globals.css';
-
-const INITIAL_CAMERA_POSITION = [
-  0, 1.6, 20,
-] as const satisfies CameraProps['position'];
 
 function App() {
   return (
     <div className="canvas_wrap">
-      <Canvas
-        shadows
-        camera={{
-          type: 'perspective',
-          fov: 45,
-          near: 1,
-          far: 1000,
-          position: INITIAL_CAMERA_POSITION,
-        }}
-      >
+      <Canvas shadows>
         <gridHelper args={[100, 100]} />
-        <Museum />
-        <PointerLockControls
-          onLock={() => console.log('Pointer locked')}
-          onUnlock={() => console.log('Pointer unlocked')}
+        <Iam />
+        <Sky
+          distance={450000}
+          sunPosition={[0, 1, 0]}
+          inclination={0}
+          azimuth={0.25}
         />
+        <Outside />
+        <Museum />
       </Canvas>
     </div>
   );

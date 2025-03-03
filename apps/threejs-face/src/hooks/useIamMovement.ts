@@ -1,39 +1,41 @@
-import { useEffect, useState, useRef } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { useFrame } from '@react-three/fiber';
 
-interface IUseMovementProps {
+interface IUseIamMovementProps {
+  /** 카메라 인스턴스 */
+  cameraRef: React.RefObject<THREE.PerspectiveCamera | null>;
   /** 이동 속도 (단위: m/s) */
   speed: number;
 }
-function useMovement({ speed = 3.0 }: IUseMovementProps) {
-  const { camera } = useThree();
-
+function useIamMovement({ cameraRef, speed = 3.0 }: IUseIamMovementProps) {
   // 키보드 상태
-  const [moveForward, setMoveForward] = useState(false);
-  const [moveBackward, setMoveBackward] = useState(false);
-  const [moveLeft, setMoveLeft] = useState(false);
-  const [moveRight, setMoveRight] = useState(false);
+  const moveForward = useRef<boolean>(false);
+  const moveBackward = useRef<boolean>(false);
+  const moveLeft = useRef<boolean>(false);
+  const moveRight = useRef<boolean>(false);
 
   // 이벤트 리스너 등록
   useEffect(() => {
+    if (!cameraRef.current) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.code) {
         case 'KeyW':
         case 'ArrowUp':
-          setMoveForward(true);
+          moveForward.current = true;
           break;
         case 'KeyS':
         case 'ArrowDown':
-          setMoveBackward(true);
+          moveBackward.current = true;
           break;
         case 'KeyA':
         case 'ArrowLeft':
-          setMoveLeft(true);
+          moveLeft.current = true;
           break;
         case 'KeyD':
         case 'ArrowRight':
-          setMoveRight(true);
+          moveRight.current = true;
           break;
         default:
           break;
@@ -43,46 +45,51 @@ function useMovement({ speed = 3.0 }: IUseMovementProps) {
       switch (e.code) {
         case 'KeyW':
         case 'ArrowUp':
-          setMoveForward(false);
+          moveForward.current = false;
           break;
         case 'KeyS':
         case 'ArrowDown':
-          setMoveBackward(false);
+          moveBackward.current = false;
           break;
         case 'KeyA':
         case 'ArrowLeft':
-          setMoveLeft(false);
+          moveLeft.current = false;
           break;
         case 'KeyD':
         case 'ArrowRight':
-          setMoveRight(false);
+          moveRight.current = false;
           break;
         default:
           break;
       }
     };
+    console.log('add event listener');
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
     return () => {
+      console.log('remove event listener');
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, []);
+  }, [cameraRef]);
 
   /**
    * INFO: 매 프레임마다 이동 처리
    *  - 60fps일 때 매 프레임 delta ≈ 0.0167, 30fps일 때 delta ≈ 0.0333
    */
   useFrame((_, delta) => {
+    if (!cameraRef.current) return;
+    const camera = cameraRef.current;
+
     // INFO: 1) 방향 벡터 초기화
     const direction = new THREE.Vector3();
 
     // INFO: 2) 앞뒤좌우 움직임 계산
-    if (moveForward) direction.z -= 1;
-    if (moveBackward) direction.z += 1;
-    if (moveLeft) direction.x -= 1;
-    if (moveRight) direction.x += 1;
+    if (moveForward.current) direction.z -= 1;
+    if (moveBackward.current) direction.z += 1;
+    if (moveLeft.current) direction.x -= 1;
+    if (moveRight.current) direction.x += 1;
 
     // INFO: 3) 실제 이동에 사용할 moveVector 생성 (y=0 고정)
     const moveVector = new THREE.Vector3(direction.x, 0, direction.z);
@@ -112,4 +119,4 @@ function useMovement({ speed = 3.0 }: IUseMovementProps) {
   return null;
 }
 
-export default useMovement;
+export default useIamMovement;
