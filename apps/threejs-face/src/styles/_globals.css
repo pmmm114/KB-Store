@@ -1,0 +1,20 @@
+/*
+  기본 리셋
+*/
+@import './reset.css';
+
+html,
+body,
+#root {
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.canvas_wrap {
+  width: 100%;
+  min-height: 100%;
+}
