@@ -6,6 +6,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), react(), tsconfigPaths()],
+  assetsInclude: ['**/*.exr'],
   root: './',
   server: {
     port: 3001,
