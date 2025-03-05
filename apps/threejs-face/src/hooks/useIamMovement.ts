@@ -63,12 +63,10 @@ function useIamMovement({ cameraRef, speed = 3.0 }: IUseIamMovementProps) {
           break;
       }
     };
-    console.log('add event listener');
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
     return () => {
-      console.log('remove event listener');
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
