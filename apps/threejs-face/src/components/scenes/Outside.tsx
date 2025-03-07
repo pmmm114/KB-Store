@@ -2,6 +2,9 @@ import { useRef } from 'react';
 import * as THREE from 'three';
 import { useHelper, useTexture, Environment } from '@react-three/drei';
 
+// INFO: objects
+import Door from '@/components/objects/Door/Door';
+
 // INFO: environment
 import OutsideLight from '@/components/environment/Lights/Outside/Outside';
 import Floor from '@/components/environment/Floors/Floor';
@@ -14,7 +17,6 @@ import paving_stones_normal_image from '@/assets/floor/pavingStone/PavingStones1
 import paving_stones_roughness_image from '@/assets/floor/pavingStone/PavingStones138_4K-JPG_Roughness.jpg';
 
 import outside_environment_image from '@/assets/HDRi/Outside/kloofendal_48d_partly_cloudy_puresky_4k.exr';
-
 const SIZE = {
   FLOOR: {
     X: () => 100,
@@ -47,6 +49,7 @@ const SceneOutside = () => {
     <>
       <Environment files={[outside_environment_image]} background />
       <OutsideLight />
+      <Door />
       <Floor
         rootMeshProps={{
           ref: floor_refs,

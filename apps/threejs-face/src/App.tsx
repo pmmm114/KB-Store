@@ -1,7 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 
 import SceneOutside from '@/components/scenes/Outside';
-import Museum from '@/canvas/Museum';
 import Iam from '@/components/environment/Cameras/Iam/Iam';
 
 import '@/styles/_globals.css';
@@ -13,7 +12,6 @@ function App() {
         <gridHelper args={[100, 100]} />
         <Iam />
         <SceneOutside />
-        <Museum />
       </Canvas>
     </div>
   );

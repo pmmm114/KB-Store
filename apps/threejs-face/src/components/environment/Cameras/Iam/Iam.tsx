@@ -10,7 +10,6 @@ const INITIAL_CAMERA_POSITION = [0, 1.6, 40] as const;
 const Iam = () => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
 
-  console.log('I am');
   // INFO: 카메라 이동 훅
   useIamMovement({ cameraRef: cameraRef, speed: 5.0 });
 
