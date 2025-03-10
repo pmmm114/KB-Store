@@ -1,13 +1,17 @@
+import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 import SceneOutside from '@/components/scenes/Outside';
 import Player from '@/components/objects/Player/Player';
 
 import '@/styles/_globals.css';
-import { Suspense } from 'react';
 
 const playerName = 'mainPlayer';
+
+gsap.registerPlugin(useGSAP);
 
 const INITIAL_PLAYER_SIZE = [() => 0.5, () => 0.9, () => 8, () => 16] as const;
 const INITIAL_PLAYER_POSITION = [
