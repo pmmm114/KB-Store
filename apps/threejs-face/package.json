@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "^0.15.0",
+    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.0.3",
     "@react-three/fiber": "^9.0.4",
     "@react-three/rapier": "^2.0.0",
     "@types/three": "^0.174.0",
+    "gsap": "^3.12.7",
     "three": "^0.174.0"
   }
 }
