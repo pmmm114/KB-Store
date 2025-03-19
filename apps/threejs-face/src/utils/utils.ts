@@ -1,12 +1,16 @@
 import * as THREE from 'three';
 
 export const getRaycastableObject = (object: THREE.Object3D) => {
-  let current = object;
-  while (current.parent && current.parent.type !== 'Scene') {
-    if (current.userData.raycastable) {
+  let _object = object;
+  let raycastable = null;
+
+  while (_object.parent && _object.parent.type !== 'Scene') {
+    if (_object.parent.userData.raycastable) {
+      raycastable = _object.parent;
       break;
     }
-    current = current.parent;
+
+    _object = _object.parent;
   }
-  return current;
+  return raycastable;
 };
