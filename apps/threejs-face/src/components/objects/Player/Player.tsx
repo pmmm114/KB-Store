@@ -1,7 +1,7 @@
 import { useRef, ComponentProps } from 'react';
 import * as THREE from 'three';
 import { type ThreeElements } from '@react-three/fiber';
-import { PointerLockControls, PerspectiveCamera, Box } from '@react-three/drei';
+import { PointerLockControls, PerspectiveCamera } from '@react-three/drei';
 import type { RapierRigidBody } from '@react-three/rapier';
 
 // INFO: Hooks
@@ -21,19 +21,20 @@ const Player = ({
   playerMeshProps,
   playerMovementProps,
 }: IPlayerProps) => {
-  const perspectiveRef = useRef<THREE.Object3D | null>(null);
+  const cameraGroupRef = useRef<THREE.Object3D | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rigidBodyRef = useRef<RapierRigidBody>(null);
 
-  // INFO: 레이캐스트 선택 훅
+  /**
+   * HOOKS
+   */
+  // INFO: Raycaster 훅
   const { selected } = useRaycastSelection({ cameraRef, distance: 5 });
-
-  // INFO: 윤곽 효과 훅
+  // INFO: Outline 효과 훅
   useOutlineEffect({ camera: cameraRef.current, activedObject: selected });
-
   // INFO: Player Movement hook
   usePlayerMovement({
-    cameraRef: perspectiveRef,
+    cameraRef: cameraGroupRef,
     rigidBodyRef: rigidBodyRef,
     playerMeshProps,
     speed: playerMovementProps?.speed || 10.0,
@@ -58,7 +59,7 @@ const Player = ({
           <capsuleGeometry attach="geometry" {...playerMeshProps} />
         </mesh>
       </RigidBody>
-      <group ref={perspectiveRef}>
+      <group ref={cameraGroupRef} name="playerCamera">
         <PerspectiveCamera
           ref={cameraRef}
           makeDefault
