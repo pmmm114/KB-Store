@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
+import { type ThreeElements } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { type RapierRigidBody, quat } from '@react-three/rapier';
@@ -16,7 +17,10 @@ const DOOR_ROTATION_AXIS = {
   right: () => [-0.09, 0, 0.81],
 } as const satisfies T.TDoorRotationAxisPosition;
 
-const Door = () => {
+interface IDoorProps {
+  rootProps?: ThreeElements['group'];
+}
+const Door = ({ rootProps }: IDoorProps) => {
   const { scene, nodes } = useGLTF(old_door_gltf);
   const doorFrameRef = useRef<RapierRigidBody>(null);
   const leftDoorRef = useRef<RapierRigidBody>(null);
@@ -132,6 +136,7 @@ const Door = () => {
         e.stopPropagation();
         doorClickHandler();
       }}
+      {...rootProps}
     >
       <RigidBody ref={doorFrameRef} type="fixed" colliders="trimesh">
         <mesh
