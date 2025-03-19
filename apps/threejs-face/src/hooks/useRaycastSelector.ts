@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 
@@ -13,11 +13,22 @@ function useRaycastSelection({
   cameraRef,
   distance = 5,
 }: IUseRaycastSelectionProps) {
-  const { scene } = useThree();
+  const scene = useThree((state) => state.scene);
+  const set = useThree((state) => state.set);
+
   const [selected, setSelected] = useState<
     Array<THREE.Object3D<THREE.Object3DEventMap>>
   >([]);
   const raycasterRef = useRef(new THREE.Raycaster());
+
+  useEffect(() => {
+    if (!raycasterRef.current) return;
+
+    raycasterRef.current.far = distance;
+    set({
+      raycaster: raycasterRef.current,
+    });
+  }, [distance]);
 
   useFrame(() => {
     if (!cameraRef.current) return;
@@ -28,23 +39,17 @@ function useRaycastSelection({
       cameraRef.current,
     );
 
-    // 씬의 모든 자식과 교차 검사
-    const intersects = raycasterRef.current.intersectObjects(
-      scene.children,
-      true,
-    );
-    if (intersects.length <= 0) {
+    // INFO: 씬의 모든 자식과 교차 검사
+    const [hit] = raycasterRef.current.intersectObjects(scene.children, true);
+    // CONDITION: 교차점이 없으면 선택 해제
+    if (!hit) {
       setSelected([]);
       return;
     }
-    // 가장 가까운 물체만 선택
-    const [hit] = intersects;
-    if (hit.distance < distance) {
-      const raycastableObject = getRaycastableObject(hit.object);
-      setSelected([raycastableObject]);
-    } else {
-      setSelected([]);
-    }
+
+    // INFO: 교차점이 있으면 선택하여 raycastable요소 탐색
+    const raycastableObject = getRaycastableObject(hit.object);
+    setSelected(raycastableObject ? [raycastableObject] : []);
   });
 
   return { selected };
