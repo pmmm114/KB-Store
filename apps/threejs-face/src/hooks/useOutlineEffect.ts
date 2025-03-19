@@ -8,7 +8,9 @@ interface IUseOutlineEffectProps {
   activedObject: Array<THREE.Object3D<THREE.Object3DEventMap>>;
 }
 function useOutlineEffect({ camera, activedObject }: IUseOutlineEffectProps) {
-  const { scene, gl, size } = useThree();
+  const scene = useThree((state) => state.scene);
+  const gl = useThree((state) => state.gl);
+  const size = useThree((state) => state.size);
 
   const composer = useRef<EffectComposer | null>(null);
   const outlinePass = useRef<OutlinePass | null>(null);
