@@ -18,7 +18,6 @@ import paving_stones_ao_image from '@/assets/floor/pavingStone/PavingStones138_4
 import paving_stones_displacement_image from '@/assets/floor/pavingStone/PavingStones138_4K-JPG_Displacement.jpg';
 import paving_stones_normal_image from '@/assets/floor/pavingStone/PavingStones138_4K-JPG_NormalGL.jpg';
 import paving_stones_roughness_image from '@/assets/floor/pavingStone/PavingStones138_4K-JPG_Roughness.jpg';
-
 import outside_environment_image from '@/assets/HDRi/Outside/kloofendal_48d_partly_cloudy_puresky_4k.exr';
 
 const SIZE = {
@@ -54,7 +53,14 @@ const SceneOutside = () => {
     <>
       <Environment files={[outside_environment_image]} background />
       <OutsideLight />
-      <Door />
+      <Door
+        rootProps={{
+          name: 'door',
+          userData: {
+            raycastable: true,
+          },
+        }}
+      />
       <RigidBody type="fixed">
         <Floor
           rootMeshProps={{
