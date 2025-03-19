@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 
 export const getRaycastableObject = (object: THREE.Object3D) => {
+  if (!object) return null;
   let _object = object;
   let raycastable = null;
 
