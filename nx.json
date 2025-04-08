@@ -21,5 +21,31 @@
         "watchDepsTargetName": "watch-deps"
       }
     }
-  ]
+  ],
+  "targetDefaults": {
+    "dev": {
+      "dependsOn": [
+        "^dev"
+      ],
+      "cache": true
+    },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ],
+      "cache": true
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ],
+      "cache": true
+    },
+    "storybook": {
+      "cache": true
+    }
+  }
 }
