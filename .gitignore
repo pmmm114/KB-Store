@@ -36,3 +36,7 @@ vitest.config.*.timestamp*
 
 # typescript
 *.tsbuildinfo
+
+# IDE
+.cursor
+.vscode
