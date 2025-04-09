@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "shadcn-ui": ["libs/react/shadcn-ui/src/index.ts"]
+      "@design-system/react/*": ["libs/design-system/react/src/*"],
+      "@shadcn-ui/*": ["libs/react/shadcn-ui/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
