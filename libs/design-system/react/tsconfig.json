@@ -1,11 +1,13 @@
 {
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "types": ["vite/client", "vitest"]
+    "moduleResolution": "bundler",
+    "types": ["vite/client", "vitest", "@vitejs/plugin-react"]
   },
   "files": [],
   "include": [],
@@ -15,7 +17,9 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
     }
-  ],
-  "extends": "../../../tsconfig.base.json"
+  ]
 }

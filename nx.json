@@ -80,5 +80,8 @@
         "unitTestRunner": "vitest"
       }
     }
+  },
+  "sync": {
+    "applyChanges": true
   }
 }

@@ -1,9 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
     "sourceMap": true,
-    "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -13,11 +11,11 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@design-system/react/*": ["libs/design-system/react/src/*"],
-      "@shadcn-ui/*": ["libs/react/shadcn-ui/src/*"]
-    }
+    // INFO: https://nx.dev/recipes/tips-n-tricks/switch-to-workspaces-project-references
+    "composite": true,
+    "declaration": true,
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules", "tmp"]
 }

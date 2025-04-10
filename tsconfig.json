@@ -1,9 +1,13 @@
 {
   "extends": "./tsconfig.base.json",
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs",
-      "moduleResolution": "node10"
+  "files": [], // intentionally empty
+  "references": [
+    // All projects in the repository
+    {
+      "path": "./libs/design-system/react"
+    },
+    {
+      "path": "./libs/react/shadcn-ui"
     }
-  }
+  ]
 }

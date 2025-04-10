@@ -11,11 +11,11 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
+    "components": "@kb-store/react-shadcn-ui/src/components",
+    "utils": "@kb-store/react-shadcn-ui/src/lib/utils",
+    "ui": "@kb-store/react-shadcn-ui/src/components/ui",
+    "lib": "@kb-store/react-shadcn-ui/src/lib",
+    "hooks": "@kb-store/react-shadcn-ui/src/hooks"
   },
   "iconLibrary": "lucide"
 }
