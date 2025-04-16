@@ -1,7 +1,15 @@
-# core
+# Basic Style Dictionary
 
-This library was generated with [Nx](https://nx.dev).
+This example code is bare-bones to show you what this framework can do. If you have the style-dictionary module installed globally, you can `cd` into this directory and run:
 
-## Building
+```bash
+npx style-dictionary build
+```
 
-Run `nx build core` to build the library.
+Otherwise, install Style Dictionary locally for this project first, `cd` into this directory and run:
+
+```bash
+npm init -y && npm install style-dictionary
+```
+
+and then run the above command.
