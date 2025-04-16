@@ -1,1 +1,1 @@
-// import '@shadcn-ui/styles/_global.css';
+import '../src/styles/index.css';

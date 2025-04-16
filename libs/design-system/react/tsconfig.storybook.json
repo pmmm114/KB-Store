@@ -2,7 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "emitDecoratorMetadata": true,
-    "outDir": ""
+    "outDir": "",
+    "rootDir": "../../../"
   },
   "exclude": [
     "src/**/*.spec.ts",

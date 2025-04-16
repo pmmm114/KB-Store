@@ -1,0 +1,5 @@
+/**
+ * 외부에서 사용되는 Design System의 기본 스타일 정의
+ */
+
+@import './_variables.css';

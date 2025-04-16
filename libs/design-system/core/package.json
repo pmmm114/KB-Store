@@ -1,0 +1,9 @@
+{
+  "name": "core",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "token-build": "node src/build-tokens.js"
+  }
+}

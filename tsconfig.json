@@ -2,12 +2,14 @@
   "extends": "./tsconfig.base.json",
   "files": [], // intentionally empty
   "references": [
-    // All projects in the repository
     {
       "path": "./libs/design-system/react"
     },
     {
       "path": "./libs/react/shadcn-ui"
+    },
+    {
+      "path": "./libs/design-system/core"
     }
   ]
 }
