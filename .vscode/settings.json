@@ -23,14 +23,19 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
+  "tailwindCSS.colorDecorators": true,
   "tailwindCSS.experimental.classRegex": [
     ["(?:cn)\\(([^)]*)\\)", "\"([^\"]*)\""],
     ["(?:cn)\\(([^)]*)\\)", "'([^']*')"],
     ["(?:cn)\\(([^)]*)\\)", "`([^`]*`)"]
   ],
-  "search.exclude": {
-    // "**/.yarn": true,
-    // "**/.pnp.*": true
-  },
+  // "tailwindCSS.experimental.configFile": {
+  //   // INFO: react 디자인 시스템 Root CSS
+  //   "libs/design-system/react/src/styles/index.css": [
+  //     "libs/react/shadcn-ui/src/styles/**",
+  //     "libs/design-system/react/src/styles/**",
+  //     "libs/design-system/core/src/styles/**"
+  //   ]
+  // },
   "eslint.nodePath": "node_modules/eslint"
 }

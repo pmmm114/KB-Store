@@ -40,3 +40,5 @@ vitest.config.*.timestamp*
 # IDE
 .cursor
 .vscode
+
+storybook-static

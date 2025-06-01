@@ -1,3 +1,15 @@
 {
-  "extends": "./tsconfig.base.json"
+  "extends": "./tsconfig.base.json",
+  "files": [], // intentionally empty
+  "references": [
+    {
+      "path": "./libs/design-system/react"
+    },
+    {
+      "path": "./libs/react/shadcn-ui"
+    },
+    {
+      "path": "./libs/design-system/core"
+    }
+  ]
 }
