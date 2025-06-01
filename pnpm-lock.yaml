@@ -319,10 +319,19 @@ importers:
         specifier: workspace:*
         version: link:../../../libs/design-system/react
 
+  apps/toss-stock:
+    dependencies:
+      '@kb-store/design-system-react':
+        specifier: workspace:*
+        version: link:../../libs/design-system/react
+
   libs/design-system/core: {}
 
   libs/design-system/react:
-    devDependencies:
+    dependencies:
+      '@kb-store/design-system-core':
+        specifier: workspace:*
+        version: link:../core
       '@kb-store/react-shadcn-ui':
         specifier: workspace:*
         version: link:../../react/shadcn-ui

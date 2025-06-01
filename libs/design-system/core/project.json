@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "design-system-core",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/design-system/core/src",
   "projectType": "library",

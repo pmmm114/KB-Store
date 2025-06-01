@@ -41,3 +41,7 @@ vitest.config.*.timestamp*
 .cursor
 
 storybook-static
+
+# nx rule
+**/nx-rules.mdc
+**/nx.instructions.md

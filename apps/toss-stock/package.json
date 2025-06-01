@@ -1,0 +1,26 @@
+{
+  "name": "toss-stock",
+  "version": "1.0.0",
+  "author": "",
+  "description": "Toss Stock 페이지 클론코딩",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "nx eslint:lint --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "add-shadcn-ui": "TS_NODE_PROJECT=tsconfig.app.json npx shadcn@latest add",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@kb-store/design-system-react": "workspace:*"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  },
+  "packageManager": "pnpm@10.4.1"
+}

@@ -1,10 +1,11 @@
 {
-  "name": "design-system/react",
+  "name": "design-system-react",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/design-system/react/src",
   "projectType": "library",
   "tags": [],
   "// targets": "to see all targets run: nx show project react --web",
+  "implicitDependencies": ["design-system-core"],
   "targets": {
     "build": {
       "dependsOn": [

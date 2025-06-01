@@ -18,14 +18,6 @@ export default defineConfig({
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
   ],
-  resolve: {
-    alias: {
-      '@kb-store/react-shadcn-ui': path.resolve(
-        __dirname,
-        '../../../libs/react/shadcn-ui/index.ts',
-      ),
-    },
-  },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
@@ -33,7 +25,7 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
-    outDir: '../../../dist/libs/design-system/react',
+    outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
@@ -42,8 +34,7 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       name: '@kb-store/design-system-react',
-      entry: 'index.ts',
-      fileName: 'index',
+      entry: 'src/index.ts',
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es'],
