@@ -1,2 +1,2 @@
-@import '../../../../../libs/react/shadcn-ui/src/styles/_global.css';
-@import '../../../../../libs/design-system/core/src/styles/_core.css';
+@import '@kb-store/react-shadcn-ui/styles';
+@import '@kb-store/design-system-core';

@@ -1,15 +1,19 @@
 {
   "name": "@kb-store/design-system-react",
   "version": "0.0.1",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "type": "module",
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./index.js"
-    }
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./styles": "./src/styles/index.css",
+    "./package.json": "./package.json"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@kb-store/design-system-core": "workspace:*",
     "@kb-store/react-shadcn-ui": "workspace:*"
   }
 }

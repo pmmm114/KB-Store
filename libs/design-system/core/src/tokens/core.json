@@ -936,7 +936,7 @@
     },
     "xs": {
       "$type": "dimension",
-      "$value": "4"
+      "$value": "0.25rem"
     },
     "sm": {
       "$type": "dimension",
@@ -987,9 +987,13 @@
       "$type": "borderRadius",
       "$value": "4"
     },
-    "lg": {
+    "md": {
       "$type": "borderRadius",
       "$value": "8"
+    },
+    "lg": {
+      "$type": "borderRadius",
+      "$value": "12"
     },
     "xl": {
       "$type": "borderRadius",

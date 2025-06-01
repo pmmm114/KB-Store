@@ -18,14 +18,6 @@ export default defineConfig({
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
   ],
-  resolve: {
-    alias: {
-      '@kb-store/react-shadcn-ui': path.resolve(
-        __dirname,
-        '../../../libs/react/shadcn-ui/index.ts',
-      ),
-    },
-  },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],

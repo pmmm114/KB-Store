@@ -1,11 +1,14 @@
 {
   "name": "@kb-store/react-shadcn-ui",
+  "version": "0.0.1",
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./index.ts",
-      "import": "./index.ts",
-      "default": "./index.ts"
-    }
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./styles": "./src/styles/_global.css",
+    "./package.json": "./package.json"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",

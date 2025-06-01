@@ -1,9 +1,10 @@
 /// <reference types='vitest' />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import tailwindcss from '@tailwindcss/vite';
+import dts from 'vite-plugin-dts';
+import * as path from 'path';
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -18,20 +19,44 @@ export default defineConfig(() => ({
   },
   plugins: [
     react(),
+    nxCopyAssetsPlugin(['*.md', 'package.json']),
+    dts({
+      entryRoot: 'src',
+      tsconfigPath: path.join(__dirname, 'tsconfig.app.json'),
+    }),
     tailwindcss(),
-    nxViteTsPaths(),
-    nxCopyAssetsPlugin(['*.md']),
   ],
+  resolve: {
+    alias: {
+      // '@kb-store/react-shadcn-ui': path.resolve(
+      //   __dirname,
+      //   '../../libs/react/shadcn-ui',
+      // ),
+      '@kb-store/react-shadcn-ui/styles': path.resolve(
+        __dirname,
+        '../../libs/react/shadcn-ui/src/styles/_global.css',
+      ),
+      '@kb-store/design-system-core': path.resolve(
+        __dirname,
+        '../../libs/design-system/core/src/styles/_core.css',
+      ),
+    },
+  },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
   // },
   build: {
-    outDir: '../../dist/apps/toss-stock',
+    outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
+    },
+    lib: {
+      name: '@kb-store/toss-stock',
+      entry: 'src/index.ts',
+      formats: ['es' as const],
     },
   },
   test: {

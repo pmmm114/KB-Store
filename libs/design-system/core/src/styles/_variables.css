@@ -226,21 +226,22 @@
   --color-rose-800: #9f1239;
   --color-rose-900: #881337;
   --dimension-scale: 2rem;
-  --dimension-xs: 4rem;
-  --dimension-sm: 4rem * 2rem;
-  --dimension-md: 4rem * 2rem * 2rem;
-  --dimension-lg: 4rem * 2rem * 2rem * 2rem;
-  --dimension-xl: 4rem * 2rem * 2rem * 2rem * 2rem;
-  --spacing-xs: 4rem;
-  --spacing-sm: 4rem * 2rem;
-  --spacing-md: 4rem * 2rem * 2rem;
-  --spacing-lg: 4rem * 2rem * 2rem * 2rem;
-  --spacing-xl: 4rem * 2rem * 2rem * 2rem * 2rem;
-  --spacing-multi-value: 4rem * 2rem 4rem * 2rem * 2rem * 2rem * 2rem; /* You can have multiple values in a single spacing token. Read more on these: https://docs.tokens.studio/available-tokens/spacing-tokens#multi-value-spacing-tokens */
+  --dimension-xs: 0.25rem;
+  --dimension-sm: 0.25rem * 2rem;
+  --dimension-md: 0.25rem * 2rem * 2rem;
+  --dimension-lg: 0.25rem * 2rem * 2rem * 2rem;
+  --dimension-xl: 0.25rem * 2rem * 2rem * 2rem * 2rem;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.25rem * 2rem;
+  --spacing-md: 0.25rem * 2rem * 2rem;
+  --spacing-lg: 0.25rem * 2rem * 2rem * 2rem;
+  --spacing-xl: 0.25rem * 2rem * 2rem * 2rem * 2rem;
+  --spacing-multi-value: 0.25rem * 2rem 0.25rem * 2rem * 2rem * 2rem * 2rem; /* You can have multiple values in a single spacing token. Read more on these: https://docs.tokens.studio/available-tokens/spacing-tokens#multi-value-spacing-tokens */
   --border-radius-sm: 4;
-  --border-radius-lg: 8;
+  --border-radius-md: 8;
+  --border-radius-lg: 12;
   --border-radius-xl: 16;
-  --border-radius-multi-value: 4 8; /* You can have multiple values in a single radius token. Read more on these: https://docs.tokens.studio/available-tokens/border-radius-tokens#single--multiple-values */
+  --border-radius-multi-value: 4 12; /* You can have multiple values in a single radius token. Read more on these: https://docs.tokens.studio/available-tokens/border-radius-tokens#single--multiple-values */
   --opacity-low: 10%;
   --opacity-md: 50%;
   --opacity-high: 90%;
@@ -319,6 +320,7 @@
   --button-primary-background: #818cf8;
   --button-primary-text: #ffffff;
   --card-background: #0f172a;
+  --background-default: #18181b; /* 배경 기본색상 */
   --h1: Extra Bold 48/48 Inter;
   --h2: Semi Bold 30/36 Inter;
   --h3: Semi Bold 24/32 Inter;

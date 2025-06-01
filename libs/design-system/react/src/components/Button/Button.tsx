@@ -1,5 +1,3 @@
-import '../../styles/index.css';
-
 import { Button } from '@kb-store/react-shadcn-ui';
 
 const DesignSystemButton = () => {

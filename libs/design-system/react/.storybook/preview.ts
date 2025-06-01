@@ -1,1 +1,1 @@
-import '../src/styles/index.css';
+import '@kb-store/design-system-core/core.css';
