@@ -55,7 +55,7 @@ export default defineConfig(() => ({
     },
     lib: {
       name: '@kb-store/toss-stock',
-      entry: 'src/index.ts',
+      entry: 'src/main.tsx',
       formats: ['es' as const],
     },
   },
