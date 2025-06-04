@@ -1,9 +1,9 @@
-import NxWelcome from './nx-welcome';
+import { ReservationPage } from '../pages/reservation';
 
 export function App() {
   return (
     <div>
-      <NxWelcome title="seat-selection" />
+      <ReservationPage />
     </div>
   );
 }
