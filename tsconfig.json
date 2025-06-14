@@ -14,11 +14,11 @@
     {
       "path": "./apps/seat-selection"
     }
-  ]
-  // "ts-node": {
-  //   "compilerOptions": {
-  //     "module": "commonjs",
-  //     "moduleResolution": "node10"
-  //   }
-  // }
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node10"
+    }
+  }
 }
