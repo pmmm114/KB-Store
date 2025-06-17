@@ -1,0 +1,11 @@
+button.personnel {
+  background-color: green;
+}
+
+button.personnel:hover {
+  background-color: red;
+}
+
+button.personnelSelected {
+  background-color: #333;
+}

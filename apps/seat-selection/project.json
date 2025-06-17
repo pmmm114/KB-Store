@@ -1,0 +1,21 @@
+{
+  "name": "seat-selection",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/seat-selection/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project seat-selection --web",
+  "targets": {
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "config": "apps/seat-selection/vitest.config.mts"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.seat {
+}
+.seat:disabled {
+  background-color: #ccc;
+}
+.selectable {
+  background-color: green;
+}
+
+.selectableHover {
+  background-color: red;
+}
+
+.selected {
+  background-color: #333;
+}
