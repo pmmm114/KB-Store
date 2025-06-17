@@ -2,11 +2,13 @@ import { StateCreator } from 'zustand/vanilla';
 
 import * as T from './types';
 
-const initSeatReservationState: T.TSeatReservationState = {
-  seatCount: 48,
+export const initSeatReservationState: T.TSeatReservationState = {
   column: 8,
-  selectableSeatIds: [],
-  selectedSeatIds: [],
+  seat: Array.from({ length: 48 }, (_, index) => ({
+    id: index,
+    isSelected: false,
+    isSelectable: false,
+  })),
 };
 export const createSeatReservationSlice: StateCreator<
   T.TSeatReservationStore,
@@ -15,39 +17,56 @@ export const createSeatReservationSlice: StateCreator<
   T.TSeatReservationSlice
 > = (set, get) => ({
   ...initSeatReservationState,
-  updateSeatStateByPersonnel: () => {
+  initSeatStateByPersonnel: () => {
     const selectedPersonnel = get().selectedPersonnel;
-    const seatCount = get().seatCount;
 
     //  CONDITION: 인원 0명 선택
     if (selectedPersonnel === 0) {
-      set(() => ({
-        selectableSeatIds: [],
-      }));
+      get().resetSeat();
     } else if (selectedPersonnel === 1) {
       //  CONDITION: 인원 1명 선택
       set(() => ({
-        selectableSeatIds: Array.from(
-          { length: seatCount },
-          (_, index) => index,
-        ).filter((_, index) => index % 2 === 0),
+        seat: get().seat.map((seat) => ({
+          ...seat,
+          isSelectable: seat.id % 2 === 0,
+        })),
       }));
     } else {
       //  CONDITION: 인원 2명 이상 선택
       set(() => ({
-        selectableSeatIds: Array.from(
-          { length: seatCount },
-          (_, index) => index,
-        ),
+        seat: get().seat.map((seat) => ({
+          ...seat,
+          isSelectable: true,
+        })),
       }));
     }
   },
+  addSelectedSeatIds: (seatIds) => {
+    set(() => ({
+      seat: get().seat.map((seat) => ({
+        ...seat,
+        isSelected: seatIds.includes(seat.id) ? true : seat.isSelected,
+      })),
+    }));
+  },
+  removeSelectedSeatIds: (seatIds) => {
+    set(() => ({
+      seat: get().seat.map((seat) => ({
+        ...seat,
+        isSelected: seatIds.includes(seat.id) ? false : seat.isSelected,
+      })),
+    }));
+  },
+  resetSeat: () => {
+    set(initSeatReservationState);
+  },
 });
 
-const initSeatReservationPersonnelState: T.TSeatReservationPersonnelState = {
-  maxPersonnel: 10,
-  selectedPersonnel: 0,
-};
+export const initSeatReservationPersonnelState: T.TSeatReservationPersonnelState =
+  {
+    maxPersonnel: 10,
+    selectedPersonnel: 0,
+  };
 export const createSeatReservationPersonnelSlice: StateCreator<
   T.TSeatReservationStore,
   [['zustand/devtools', never]],
@@ -56,7 +75,18 @@ export const createSeatReservationPersonnelSlice: StateCreator<
 > = (set, get) => ({
   ...initSeatReservationPersonnelState,
   setSelectedPersonnel: (personnel) => {
+    const currentSelectedSeats = get().seat.filter((seat) => seat.isSelected);
+
+    if (currentSelectedSeats.length > personnel) {
+      alert('선택된 좌석이 변경하려는 예매 인원보다 많습니다.');
+      return;
+    }
+
     set(() => ({ selectedPersonnel: personnel }));
-    get().updateSeatStateByPersonnel();
+    get().initSeatStateByPersonnel();
+  },
+  resetPersonnel: () => {
+    set(initSeatReservationPersonnelState);
+    get().resetSeat();
   },
 });

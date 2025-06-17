@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
-  "files": [], // intentionally empty
+  "files": [],
   "references": [
     {
       "path": "./libs/design-system/react"
@@ -14,5 +14,11 @@
     {
       "path": "./apps/seat-selection"
     }
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node10"
+    }
+  }
 }

@@ -10,6 +10,9 @@ const Personnel = () => {
   const setSelectedPersonnel = useSeatReservationStore(
     (state) => state.setSelectedPersonnel,
   );
+  const resetPersonnel = useSeatReservationStore(
+    (state) => state.resetPersonnel,
+  );
 
   return (
     <div
@@ -26,6 +29,7 @@ const Personnel = () => {
             type="button"
             key={index}
             onClick={() => setSelectedPersonnel(index)}
+            aria-label={`${index}명`}
             className={
               selectedPersonnel === index
                 ? S['personnelSelected']
@@ -37,7 +41,9 @@ const Personnel = () => {
         ))}
       </div>
       <div>
-        <button type="button">reset</button>
+        <button type="button" aria-label="reset" onClick={resetPersonnel}>
+          reset
+        </button>
       </div>
     </div>
   );
