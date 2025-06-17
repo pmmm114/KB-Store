@@ -1,24 +1,16 @@
 .seat {
 }
-.seatDisabled {
+.seat:disabled {
   background-color: #ccc;
 }
-
-.seat:hover {
-}
-
 .selectable {
-  background-color: #333;
-}
-
-.selectable:hover {
-  background-color: red;
-}
-
-.personnel {
   background-color: green;
 }
 
-.personnel.selected {
+.selectableHover {
+  background-color: red;
+}
+
+.selected {
   background-color: #333;
 }

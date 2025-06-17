@@ -4,7 +4,7 @@ export const ReservationPage = () => {
   return (
     <div>
       <Personnel />
-      <Seat seatCount={48} column={6} />
+      <Seat />
     </div>
   );
 };

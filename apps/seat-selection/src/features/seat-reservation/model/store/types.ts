@@ -1,8 +1,17 @@
+/**
+ * 좌석 정보
+ */
+export interface ISeat {
+  /** 좌석 번호 */
+  id: number;
+  /** 좌석 선택 여부 */
+  isSelected: boolean;
+  /** 좌석 선택 가능 여부 */
+  isSelectable: boolean;
+}
 export type TSeatReservationState = {
-  seatCount: number;
   column: number;
-  selectableSeatIds: Array<number>;
-  selectedSeatIds: Array<number>;
+  seat: Array<ISeat>;
 };
 
 export type TSeatReservationPersonnelState = {
@@ -10,10 +19,14 @@ export type TSeatReservationPersonnelState = {
   selectedPersonnel: number;
 };
 export type TSeatReservationActions = {
-  updateSeatStateByPersonnel: () => void;
+  initSeatStateByPersonnel: () => void;
+  addSelectedSeatIds: (seatIds: Array<number>) => void;
+  removeSelectedSeatIds: (seatIds: Array<number>) => void;
+  resetSeat: () => void;
 };
 export type TSeatReservationPersonnelActions = {
   setSelectedPersonnel: (personnel: number) => void;
+  resetPersonnel: () => void;
 };
 
 export type TSeatReservationSlice = TSeatReservationState &
