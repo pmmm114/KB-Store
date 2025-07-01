@@ -39,5 +39,10 @@ vitest.config.*.timestamp*
 
 # IDE
 .cursor
+.cursorignore
 
 storybook-static
+
+# Next.js
+.next
+out
