@@ -1,0 +1,42 @@
+flowchart TD
+  %% Layers: Client -> Next.js App -> Supabase -> External AI
+
+  subgraph "Client"
+    U["User Browser"]
+  end
+
+  subgraph "Next.js Application"
+    FE["Pages (App Router)"]
+    APIAuth["API Route (/api/auth)"]
+    APITarot["API Route (/api/tarot)"]
+  end
+
+  subgraph "Supabase Platform"
+    SupaAuth["Auth"]
+    SupaDB["PostgreSQL"]
+  end
+
+  subgraph "External AI Service"
+    OpenAI["OpenAI API"]
+  end
+
+  %% Flow
+  %% Client to FE
+  U -->|"HTTPS"| FE
+
+  %% Auth flow
+  FE -->|"POST /api/auth"| APIAuth
+  APIAuth -->|"SignUp / SignIn"| SupaAuth
+  SupaAuth --> SupaDB
+  APIAuth -->|"JWT"| FE
+
+  %% Tarot prediction flow
+  FE -->|"POST /api/tarot (Auth: JWT)"| APITarot
+  APITarot -->|"Verify JWT"| SupaAuth
+  APITarot -->|"Query / Store"| SupaDB
+  APITarot -->|"Completion Request"| OpenAI
+  OpenAI -->|"Prediction"| APITarot
+  APITarot -->|"JSON Response"| FE
+
+  %% FE renders result
+  FE --> U
