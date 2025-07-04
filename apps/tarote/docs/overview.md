@@ -21,3 +21,5 @@ Tarote 서비스는 타로 카드를 활용해 AI 기반 운세를 제공하는 
 ## 플로우차트
 
 ![Tarote Feature Flow](./diagrams/feature-flow.png)
+
+![Tarote Process Flow](./diagrams/process-flow.png)
