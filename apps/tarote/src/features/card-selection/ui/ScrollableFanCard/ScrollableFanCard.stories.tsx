@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
 import { ScrollableFanCard } from './ScrollableFanCard';
+import type * as T from './ScrollableFanCard.types';
 
 const meta: Meta<typeof ScrollableFanCard> = {
   title: 'Features/CardSelection/ScrollableFanCard',
@@ -20,7 +21,7 @@ export const Default: Story = {
     cards: Array.from({ length: 78 }).map((_, idx) => ({ id: idx + 1 })),
     cardBackSrc: '/cards/CardBacks.png',
   },
-  render: (args) => (
+  render: (args: T.IScrollableFanCardProps) => (
     <div className="flex h-[800px] w-full items-center">
       <ScrollableFanCard {...args} />
     </div>

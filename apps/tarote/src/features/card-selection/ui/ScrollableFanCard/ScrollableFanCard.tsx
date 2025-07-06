@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { CARD_SELECT_LIMIT } from '../../model/const';
 import styles from './ScrollableFanCard.module.css';
 
-import type { IScrollableFanCardProps } from '../../model/types';
+import type * as T from './ScrollableFanCard.types';
 
 /**
  * Horizontally scrollable, fan-shaped row of cards.
@@ -16,7 +16,7 @@ import type { IScrollableFanCardProps } from '../../model/types';
 export const ScrollableFanCard = ({
   cards,
   cardBackSrc = '/cards/CardBacks.png',
-}: IScrollableFanCardProps) => {
+}: T.IScrollableFanCardProps) => {
   const [isSelected, setIsSelected] = useState<number[]>([]);
 
   /**
