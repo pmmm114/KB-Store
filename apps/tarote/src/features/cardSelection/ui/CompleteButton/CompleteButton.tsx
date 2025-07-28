@@ -7,7 +7,7 @@ import * as T from './CompleteButton.types';
 
 export const CompleteButton = ({
   selectedIds,
-  onComplete,
+  ...rest
 }: T.ICompleteButtonProps) => {
   const isDisabled = selectedIds.length !== CARD_SELECT_LIMIT;
 
@@ -16,7 +16,7 @@ export const CompleteButton = ({
       type="button"
       className={styles.completeButton}
       disabled={isDisabled}
-      onClick={() => onComplete?.(selectedIds)}
+      {...rest}
     >
       선택완료
     </button>
