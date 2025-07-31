@@ -1,0 +1,9 @@
+@reference '../../../../styles/tailwind.css';
+
+.completeButton {
+  @apply sticky bottom-0 w-full bg-blue-500 px-4 py-4 font-bold text-white;
+
+  &:disabled {
+    @apply cursor-not-allowed bg-gray-400;
+  }
+}

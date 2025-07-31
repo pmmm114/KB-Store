@@ -1,0 +1,32 @@
+@reference '../../../../styles/tailwind.css';
+
+.container {
+  @apply flex w-full flex-1 flex-col;
+}
+
+.scroll {
+  @apply grid justify-center gap-4 px-6 py-8;
+  grid-template-columns: repeat(auto-fit, minmax(35px, max-content));
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  perspective: 800px;
+  perspective-origin: 50vw 50vh; /* 뷰포트 중앙 기준 */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.card {
+  @apply box-border flex-[0_0_auto];
+  transition: transform 0.2s ease-in-out;
+  box-shadow:
+    -5px 4px 10px rgba(0, 0, 0, 0.18),
+    -5px 4px 10px rgba(0, 0, 0, 0.1);
+
+  &[aria-pressed='true'] {
+    @apply outline-3 outline-green-300;
+    transform: translate3d(0, 0, 10px);
+  }
+}

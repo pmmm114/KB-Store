@@ -1,0 +1,17 @@
+@reference '../../../../styles/tailwind.css';
+
+.container {
+  @apply flex h-full flex-1 items-center gap-8 p-8;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.pickedCard {
+  @apply relative inline-flex h-[300px] flex-[1_1_200px];
+  & .removeButton {
+    @apply absolute top-1/2 left-1/2 z-9 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-400 text-white;
+    pointer-events: fill;
+  }
+}

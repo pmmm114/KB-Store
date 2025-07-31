@@ -3,7 +3,6 @@
   "compilerOptions": {
     "jsx": "preserve",
     "strict": true,
-    "noEmit": true,
     "emitDeclarationOnly": false,
     "esModuleInterop": true,
     "module": "esnext",
@@ -23,22 +22,22 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "noEmit": true
   },
+  "files": [],
   "include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.ts",
-    "**/*.tsx",
-    "../../apps/tarote/.next/types/**/*.ts",
-    "../../dist/apps/tarote/.next/types/**/*.ts",
-    "next-env.d.ts",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "jest.config.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts"
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
+    }
   ]
 }
