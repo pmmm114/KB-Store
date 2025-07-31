@@ -10,13 +10,13 @@ Tarote 서비스는 타로 카드를 활용해 AI 기반 운세를 제공하는 
 
 ## 기술 스택 & 아키텍처
 
-| 영역       | 사용 기술                                    |
-| ---------- | -------------------------------------------- |
-| 프론트엔드 | Next.js 14 (App Router) · React · TypeScript |
-| UI         | Tailwind CSS · shadcn/ui · Storybook         |
-| 인증/DB    | Supabase                                     |
-| AI         | OpenAI API                                   |
-| 설계       | Nx 모노레포 · FSD 아키텍처                   |
+| 영역       | 사용 기술                                        |
+| ---------- | ------------------------------------------------ |
+| 프론트엔드 | Next.js 15.2.5 (App Router) · React · TypeScript |
+| UI         | Tailwind CSS · shadcn/ui · Storybook             |
+| 인증/DB    | Supabase                                         |
+| AI         | OpenAI API                                       |
+| 설계       | Nx 모노레포 · FSD 아키텍처                       |
 
 ## 플로우차트
 
