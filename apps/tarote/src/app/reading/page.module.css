@@ -1,0 +1,57 @@
+@reference '../../styles/tailwind.css';
+
+.readingPage {
+  @apply flex h-full min-h-screen flex-col bg-amber-50;
+}
+
+.stepIndicator {
+  @apply w-full bg-white py-4 shadow-sm;
+}
+
+.stepContainer {
+  @apply mx-auto flex max-w-md items-center justify-center px-4;
+}
+
+.step {
+  @apply flex flex-col items-center gap-2;
+}
+
+.stepNumber {
+  @apply flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-semibold;
+}
+
+.stepLabel {
+  @apply text-xs font-medium;
+}
+
+.step.active .stepNumber {
+  @apply border-blue-500 bg-blue-500 text-white;
+}
+
+.step.active .stepLabel {
+  @apply text-blue-500;
+}
+
+.step.completed .stepNumber {
+  @apply border-green-500 bg-green-500 text-white;
+}
+
+.step.completed .stepLabel {
+  @apply text-green-500;
+}
+
+.step:not(.active):not(.completed) .stepNumber {
+  @apply border-gray-300 bg-gray-100 text-gray-400;
+}
+
+.step:not(.active):not(.completed) .stepLabel {
+  @apply text-gray-400;
+}
+
+.stepDivider {
+  @apply mx-4 h-px flex-1 bg-gray-200;
+}
+
+.stepContent {
+  @apply flex flex-1 flex-col;
+}
