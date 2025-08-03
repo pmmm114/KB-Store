@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import { CARD_SELECT_LIMIT } from '../../model/const';
 import styles from './ScrollableFanCard.module.css';
@@ -16,33 +16,30 @@ import type * as T from './ScrollableFanCard.types';
 export const ScrollableFanCard = ({
   cards,
   cardBackSrc = '/cards/CardBacks.png',
+  selectedIds = [],
+  onSelectionChange,
 }: T.IScrollableFanCardProps) => {
-  const [isSelected, setIsSelected] = useState<number[]>([]);
-
   /**
    * 카드 선택
    */
-  const onSelect = useCallback((cardId: number) => {
-    console.log('onSelect', cardId);
+  const onSelect = useCallback(
+    (cardId: number) => {
+      const newSelection = selectedIds.includes(cardId)
+        ? selectedIds.filter((id) => id !== cardId)
+        : selectedIds.length >= CARD_SELECT_LIMIT
+          ? selectedIds
+          : [...selectedIds, cardId];
 
-    setIsSelected((prev) => {
-      if (prev.includes(cardId)) {
-        return prev.filter((id) => id !== cardId);
-      }
-      // CONDITION: 이미 최대 개수만큼 선택했다면 추가 선택 불가
-      if (prev.length >= CARD_SELECT_LIMIT) {
-        return prev;
-      }
-
-      return [...new Set([...prev, cardId])];
-    });
-  }, []);
+      onSelectionChange?.(newSelection);
+    },
+    [selectedIds, onSelectionChange],
+  );
 
   return (
     <div className={styles.container}>
       <div className={styles.scroll}>
-        {cards.map((card, idx) => {
-          const _isSelected = isSelected.includes(Number(card.id));
+        {cards.map((card) => {
+          const _isSelected = selectedIds.includes(Number(card.id));
 
           return (
             <button
