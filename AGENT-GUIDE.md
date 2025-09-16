@@ -27,6 +27,11 @@ shared/  # 공통 코드
 - **CLAUDE.md**: 비즈니스 명세 (기획자용)
 - **AGENT-GUIDE.md**: 기술 구현 가이드 (개발자용)
 
+## 📝 PR 작성 규칙 (Base Rule)
+- **템플릿 준수**: `.github/pull_request_template.md` 필수 사용
+- **크기 제한**: 200줄 내외 (맥락을 강제로 끊는 경우 제외)
+- **체크리스트**: 모든 해당 항목 완료 후 PR 생성
+
 ## 🧪 테스트 전략
 - **단위 테스트**: Vitest
 - **E2E 테스트**: Playwright
